@@ -1,14 +1,164 @@
-/* Design tokens and global styles are expanded in M0 step 2 (docs/DESIGN.md). */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-#root {
-  height: 100%;
+/* ------------------------------------------------------------------ *
+ * Design tokens — docs/DESIGN.md section 1.1, applied verbatim.
+ * Tailwind utilities (bg-app, ink, text-timer-lg, font-display, ...)
+ * read the same values from tailwind.config.js. These CSS variables
+ * exist for cases where a raw var() is clearer than a utility.
+ * ------------------------------------------------------------------ */
+:root {
+  /* Background layers */
+  --bg-app: #0b0d10; /* app background, all workout screens */
+  --bg-deep: #080a0d; /* breathing screens, deepest layer */
+  --bg-surface: #10141a; /* image wells, inset surfaces */
+  --bg-panel: rgba(13, 16, 21, 0.85); /* panels floating over photography */
+
+  /* Borders (all hairline, cool-tinted) */
+  --border-faint: rgba(200, 220, 240, 0.08); /* internal dividers */
+  --border-default: rgba(200, 220, 240, 0.12); /* cards, containers */
+  --border-strong: rgba(200, 220, 240, 0.15); /* inputs, icon buttons */
+  --border-emphasis: rgba(200, 220, 240, 0.25); /* secondary buttons */
+
+  /* Text */
+  --text-primary: #e6ecf2;
+  --text-secondary: #b9c4ce;
+  --text-muted: #76828f; /* labels, meta */
+  --text-faint: #5a6570; /* inactive tabs, de-emphasised chrome */
+  --text-ghost: #3d4650; /* rest days, hints, disabled */
+
+  /* Accent: workout */
+  --accent: #ffb000; /* amber signal, one per screen region */
+  --accent-ink: #0b0d10; /* text/icons on amber */
+  --accent-dim: rgba(255, 176, 0, 0.14); /* selected fills */
+  --accent-border: rgba(255, 176, 0, 0.45); /* chip outlines */
+  --accent-wash: rgba(255, 176, 0, 0.06); /* today column tint */
+
+  /* Accent: breathing */
+  --breath: #9eb8c9; /* ice blue signal */
+  --breath-dim: rgba(158, 184, 201, 0.16);
+  --breath-faint: rgba(158, 184, 201, 0.07);
+  --breath-border: rgba(158, 184, 201, 0.45);
+
+  /* Semantic */
+  --success: #63c68c;
+  --warning: #ffb000; /* shares accent */
+  --danger: #ff5c33;
+
+  /* Effort */
+  --effort-easy: #8fb3cc;
+  --effort-ideal: #ffb000; /* shares accent */
+  --effort-max: #ff5c33; /* shares danger */
+
+  /* Typography */
+  --font-display: 'Anton', sans-serif; /* single weight 400 */
+  --font-ui: 'Archivo', sans-serif; /* 400 to 700 */
+
+  /* Radii */
+  --radius-xs: 3px; /* chips, thumbnails, stepper buttons */
+  --radius-sm: 4px; /* cards, buttons, inputs, panels */
+  --radius-full: 9999px; /* status dots only */
+
+  /* Spacing scale (px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-14: 56px;
+  --gutter: 24px; /* screen horizontal padding, everywhere */
+
+  /* Shadows and glows (use sparingly) */
+  --shadow-text-photo: 0 2px 30px rgba(11, 13, 16, 0.7); /* type over photos */
+  --glow-breath: 0 0 60px rgba(158, 184, 201, 0.12); /* breathing shape only */
+
+  /* Z-layers */
+  --z-base: 0;
+  --z-photo-overlay: 1; /* gradient scrim over exercise photo */
+  --z-content: 2; /* everything above the scrim */
+  --z-tabbar: 10;
+  --z-sheet-scrim: 30;
+  --z-sheet: 40;
+  --z-toast: 50;
+
+  /* Motion */
+  --duration-tap: 120ms; /* press feedback, stepper ticks */
+  --duration-state: 200ms; /* selection, chip, tab changes */
+  --duration-screen: 300ms; /* set to rest, sheet open */
+  --duration-phase: 500ms; /* rest to next set, breathing phase cross-fade */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-breath: cubic-bezier(0.37, 0, 0.63, 1); /* sine in-out, breathing shape only */
 }
 
-body {
-  margin: 0;
+/* ------------------------------------------------------------------ *
+ * Global base
+ * ------------------------------------------------------------------ */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  html {
+    /* Prevent iOS text auto-inflation on rotate; dark colour scheme only (v1). */
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 13px;
+    line-height: 1.45;
+    /* Avoid iOS tap highlight and text selection in the app chrome. */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
+
+  /* Every number that changes over time uses tabular figures (DESIGN.md). */
+  .font-display {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilities
+ * ------------------------------------------------------------------ */
+@layer utilities {
+  /* Tabular numerals for any changing number (timers, steppers, elapsed). */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Safe-area helpers (iPhone notch and home indicator, viewport-fit=cover). */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+  .min-h-screen-safe {
+    min-height: 100dvh;
+  }
+  /* Screen gutter (24px horizontal everywhere, plus side safe areas). */
+  .px-gutter {
+    padding-left: calc(24px + env(safe-area-inset-left));
+    padding-right: calc(24px + env(safe-area-inset-right));
+  }
 }
