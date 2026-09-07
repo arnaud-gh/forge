@@ -1,13 +1,14 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { TabBar, HomeIcon, BreatheIcon, HistoryIcon, SettingsIcon } from '@/components';
-import type { TabItem } from '@/components';
+import type { ReactNode } from 'react';
 
-// Tab keys map to routes. Labels are localized in step 8.
-const TABS: Array<TabItem & { path: string }> = [
-  { key: 'home', label: 'Home', path: '/', icon: <HomeIcon /> },
-  { key: 'breathe', label: 'Breathe', path: '/breathe', icon: <BreatheIcon /> },
-  { key: 'history', label: 'History', path: '/history', icon: <HistoryIcon /> },
-  { key: 'settings', label: 'Settings', path: '/settings', icon: <SettingsIcon /> },
+// Tab keys map to routes. Labels come from the common namespace.
+const TABS: Array<{ key: string; path: string; icon: ReactNode }> = [
+  { key: 'home', path: '/', icon: <HomeIcon /> },
+  { key: 'breathe', path: '/breathe', icon: <BreatheIcon /> },
+  { key: 'history', path: '/history', icon: <HistoryIcon /> },
+  { key: 'settings', path: '/settings', icon: <SettingsIcon /> },
 ];
 
 function activeKeyFor(pathname: string): string {
@@ -25,7 +26,10 @@ function activeKeyFor(pathname: string): string {
 export function TabLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation('common');
   const activeKey = activeKeyFor(location.pathname);
+
+  const items = TABS.map(({ key, icon }) => ({ key, icon, label: t(`tabs.${key}`) }));
 
   return (
     <div className="flex h-[100dvh] flex-col bg-app">
@@ -33,7 +37,7 @@ export function TabLayout() {
         <Outlet />
       </main>
       <TabBar
-        items={TABS}
+        items={items}
         activeKey={activeKey}
         onSelect={(key) => {
           const tab = TABS.find((t) => t.key === key);

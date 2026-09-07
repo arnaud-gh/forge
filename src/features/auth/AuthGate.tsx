@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from './authStore';
 import { SignInScreen } from './SignInScreen';
 
 function Splash() {
+  const { t } = useTranslation('common');
   return (
     <main className="flex min-h-screen-safe items-center justify-center bg-app">
       <p className="font-display text-display-md uppercase tracking-[0.04em] text-ink-ghost">
-        Forge
+        {t('appName')}
       </p>
     </main>
   );

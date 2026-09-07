@@ -1,0 +1,19 @@
+{
+  "appName": "Forge",
+  "tabs": {
+    "home": "Home",
+    "breathe": "Breathe",
+    "history": "History",
+    "settings": "Settings"
+  },
+  "actions": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "signOut": "Sign out",
+    "reload": "Reload"
+  },
+  "pwa": {
+    "updateAvailable": "A new version is available.",
+    "offlineReady": "Ready to work offline."
+  }
+}
