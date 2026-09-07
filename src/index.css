@@ -1,0 +1,14 @@
+/* Design tokens and global styles are expanded in M0 step 2 (docs/DESIGN.md). */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
