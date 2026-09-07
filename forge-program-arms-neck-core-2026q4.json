@@ -1,0 +1,2773 @@
+{
+  "schemaVersion": 1,
+  "programId": "arms-neck-core-spec-2026-q4",
+  "name": "Arms, Neck & Core Specialisation (10 weeks)",
+  "description": "Specialisation block: arms, forearms and grip, shoulders and traps, neck (Thibarmy Intermediate then Advanced) and core, with full body maintenance on machines at the office. Weeks 1-4 accumulation, 5-8 intensification (+1 set on priority lifts, neck Advanced, optional vest on pull-ups), week 9 deload, week 10 tests.",
+  "weeks": 10,
+  "exercises": [
+    {
+      "id": "custom-banded-neck-protraction",
+      "name": "Banded neck protraction",
+      "equipment": "bands",
+      "primaryMuscles": [
+        "neck"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Lie on a bench, band anchored under it and wrapped around the forehead (towel for comfort).",
+        "Start in full retraction (double chin). Drive the chin toward the ceiling, lifting head and neck off the bench.",
+        "Lower with control. Keep the forehead perpendicular to the band."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-banded-neck-retraction",
+      "name": "Banded neck retraction",
+      "equipment": "bands",
+      "primaryMuscles": [
+        "neck"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Sit with the upper back supported, band looped behind the head and held in front of the face.",
+        "Start with the chin jutted forward. Pull the back of the head into the band, chin tucked, jaw parallel to the floor.",
+        "Return with control."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-gittleson-shrug",
+      "name": "Gittleson shrug (one-arm, kettlebell)",
+      "equipment": "kettlebells",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "secondaryMuscles": [
+        "neck"
+      ],
+      "instructions": [
+        "Sit upright on a bench, wide stance, kettlebell in one hand, other hand holding the bench underneath.",
+        "Shrug as high as possible, keep elevating past where you think the top is, pause.",
+        "Lower under control. Do not move the neck on purpose; let it follow."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-bench-neck-flexion-bridge",
+      "name": "Bench neck flexion bridge",
+      "equipment": "body only",
+      "primaryMuscles": [
+        "neck"
+      ],
+      "secondaryMuscles": [
+        "abdominals"
+      ],
+      "instructions": [
+        "Kneel facing the long side of a bench, forehead and forearms on the pad, knees lifted so weight is on forefeet and forehead.",
+        "Start with chest dropped toward the floor (neck extended). Press the forehead into the pad and pull the chin to the chest, driving the mid back up.",
+        "Return by letting the neck extend. Use the forearms only as much as needed."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-bench-neck-extension-bridge",
+      "name": "Bench neck extension bridge",
+      "equipment": "body only",
+      "primaryMuscles": [
+        "neck"
+      ],
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "instructions": [
+        "Sit perpendicular to a bench, back of the head on the pad, knees over ankles, hips low.",
+        "Drive the back of the head into the pad and bridge the hips up while extending the neck, gaze behind you.",
+        "Lower until the head is about to lose purchase. Progress: hands on bench, then overhead, then across chest, then at sides."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-rice-bucket-open-close",
+      "name": "Rice bucket: open and close",
+      "equipment": "other",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Hands buried in the rice. Open the fingers wide, then close into a fist. Fast and full range."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-rice-bucket-wrist-flex-ext",
+      "name": "Rice bucket: wrist flexion and extension",
+      "equipment": "other",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Fists buried in the rice. Flex and extend the wrists against the resistance of the rice."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-rice-bucket-pronation-supination",
+      "name": "Rice bucket: pronation and supination",
+      "equipment": "other",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Hands buried, rotate palms up and palms down, twisting through the rice."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-rice-bucket-finger-dig",
+      "name": "Rice bucket: finger dig and spread",
+      "equipment": "other",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Dig the fingers down into the rice like claws, then spread them apart against the resistance."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-rice-bucket-circles",
+      "name": "Rice bucket: wrist circles",
+      "equipment": "other",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Fists buried, draw circles with the wrists, both directions."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-suitcase-carry",
+      "name": "Suitcase carry (kettlebell)",
+      "equipment": "kettlebells",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "secondaryMuscles": [
+        "forearms",
+        "traps"
+      ],
+      "instructions": [
+        "Hold one heavy kettlebell at your side, stand tall, ribs down, shoulders level.",
+        "Walk without leaning toward or away from the weight. Switch sides."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-hollow-body-hold",
+      "name": "Hollow body hold",
+      "equipment": "body only",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Lie on your back, lower back pressed into the floor, arms overhead, legs straight and a few centimetres off the floor.",
+        "Hold. Regress by bending the knees or bringing the arms forward."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-foam-roller-thoracic-extension",
+      "name": "Foam roller thoracic extension",
+      "equipment": "foam roll",
+      "primaryMuscles": [
+        "middle back"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "Foam roller across the mid back, hands behind the head, hips down.",
+        "Extend the upper back over the roller, exhale, return. Move the roller up a few centimetres and repeat."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-thoracic-rotation-quadruped",
+      "name": "Quadruped thoracic rotation",
+      "equipment": "body only",
+      "primaryMuscles": [
+        "middle back"
+      ],
+      "secondaryMuscles": [],
+      "instructions": [
+        "On all fours, one hand behind the head. Rotate the elbow toward the opposite knee, then open up toward the ceiling, following with the eyes."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-leg-swings",
+      "name": "Leg swings (front to back and side to side)",
+      "equipment": "body only",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "secondaryMuscles": [
+        "adductors",
+        "abductors"
+      ],
+      "instructions": [
+        "Hold a support. Swing one leg front to back with control, then side to side. Switch legs."
+      ],
+      "images": []
+    },
+    {
+      "id": "custom-heavy-bag-round",
+      "name": "Heavy bag round (Muay Thai technique)",
+      "equipment": "other",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "secondaryMuscles": [
+        "abdominals",
+        "quadriceps"
+      ],
+      "instructions": [
+        "Technique work on the heavy bag at a controlled pace: combinations, kicks, knees. Stay relaxed, focus on form."
+      ],
+      "images": []
+    }
+  ],
+  "sessions": [
+    {
+      "id": "home-pull-grip",
+      "name": "Pull, Grip, Core, Neck 1",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "custom-foam-roller-thoracic-extension",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Cat_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "Scapular_Pull-Up",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 8
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-5",
+              "exerciseId": "Barbell_Deadlift",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 5
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Ramp-up: empty bar x5, then 2 lighter sets before working weight (not logged)."
+            }
+          ]
+        },
+        {
+          "id": "main",
+          "name": "Main",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "dl",
+              "exerciseId": "Barbell_Deadlift",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 5,
+                  "weightKg": 100
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 5,
+                  "weightKg": 100
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 5,
+                  "weightKg": 100
+                }
+              ],
+              "restSeconds": 180,
+              "prepSeconds": 45,
+              "notes": "Fresh, brace hard, reset each rep. Stop the set the moment position degrades. Reduce load on a tired day rather than skip.",
+              "alternatives": [
+                "Trap_Bar_Deadlift",
+                "Romanian_Deadlift"
+              ]
+            },
+            {
+              "id": "pu",
+              "exerciseId": "Pullups",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 4
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 4
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 4
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 4
+                },
+                {
+                  "type": "repRange",
+                  "min": 3,
+                  "max": 4
+                }
+              ],
+              "restSeconds": 75,
+              "notes": "Quality volume, far from failure. Full hang, chest to bar. From week 5 add the 7 kg vest if you can do 10 clean reps.",
+              "alternatives": [
+                "Chin-Up",
+                "Band_Assisted_Pull-Up"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-core",
+          "name": "Grip and core",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "fc",
+              "exerciseId": "Farmers_Walk",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 40
+                },
+                {
+                  "type": "duration",
+                  "seconds": 40
+                },
+                {
+                  "type": "duration",
+                  "seconds": 40
+                }
+              ],
+              "restSeconds": 60,
+              "equipment": "2 x 24-30 kg kettlebells",
+              "notes": "Tall posture, ribs down, crush the handles. Log the kettlebell weight per hand."
+            },
+            {
+              "id": "hlr",
+              "exerciseId": "Hanging_Leg_Raise",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Hang from the rack bar. Bent knees if straight legs break form. No swinging.",
+              "alternatives": [
+                "Flat_Bench_Lying_Leg_Raise"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bi",
+          "name": "Biceps",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "inc-curl",
+              "exerciseId": "Incline_Dumbbell_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 75,
+              "notes": "Bench at 45 degrees, arms hanging back, full stretch at the bottom, no swing.",
+              "alternatives": [
+                "Alternate_Incline_Dumbbell_Curl",
+                "Concentration_Curls"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "neck",
+          "name": "Neck session 1",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "n-pro",
+              "exerciseId": "custom-banded-neck-protraction",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "Yellow band",
+              "notes": "Thibarmy Intermediate, session 1 (lighter). Yellow band protraction, orange band retraction. Close to technical failure, move up a band when two sessions in a row feel easy."
+            },
+            {
+              "id": "n-ret",
+              "exerciseId": "custom-banded-neck-retraction",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "Orange band"
+            },
+            {
+              "id": "n-git",
+              "exerciseId": "custom-gittleson-shrug",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "unilateral": true,
+              "notes": "Heavy kettlebell. Start with ~2/3 of your usual dumbbell shrug weight."
+            }
+          ]
+        },
+        {
+          "id": "rice",
+          "name": "Rice bucket",
+          "type": "circuit",
+          "rounds": 2,
+          "restBetweenRoundsSeconds": 20,
+          "blocks": [
+            {
+              "id": "r1",
+              "exerciseId": "custom-rice-bucket-open-close",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r2",
+              "exerciseId": "custom-rice-bucket-wrist-flex-ext",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r3",
+              "exerciseId": "custom-rice-bucket-pronation-supination",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r4",
+              "exerciseId": "custom-rice-bucket-finger-dig",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r5",
+              "exerciseId": "custom-rice-bucket-circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office-full-body-a",
+      "name": "Full Body A (machines)",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "Bicycling_Stationary",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 180
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Easy pace."
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "custom-leg-swings",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "Leg_Press",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 10
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Two light ramp-up sets (not logged)."
+            }
+          ]
+        },
+        {
+          "id": "main",
+          "name": "Main",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "lp",
+              "exerciseId": "Leg_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 120,
+              "prepSeconds": 30,
+              "equipment": "EGYM leg press",
+              "notes": "Full depth without the lower back rounding off the pad."
+            },
+            {
+              "id": "cp",
+              "exerciseId": "Leverage_Chest_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "equipment": "EGYM chest press",
+              "alternatives": [
+                "Dumbbell_Bench_Press",
+                "Smith_Machine_Bench_Press"
+              ]
+            },
+            {
+              "id": "lpd",
+              "exerciseId": "Wide-Grip_Lat_Pulldown",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "equipment": "EGYM lat pulldown",
+              "notes": "Medium pronated grip, just outside shoulder width. Pull elbows down and back, chest up.",
+              "alternatives": [
+                "Close-Grip_Front_Lat_Pulldown",
+                "V-Bar_Pulldown"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-post",
+          "name": "Posterior chain",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "lc",
+              "exerciseId": "Seated_Leg_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "equipment": "EGYM leg curl",
+              "alternatives": [
+                "Lying_Leg_Curls"
+              ]
+            },
+            {
+              "id": "be",
+              "exerciseId": "Hyperextensions_Back_Extensions",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "equipment": "EGYM back extension",
+              "notes": "Controlled, no lumbar hyperextension at the top. Squeeze glutes."
+            }
+          ]
+        },
+        {
+          "id": "row",
+          "name": "Row",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "row",
+              "exerciseId": "Leverage_Iso_Row",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "equipment": "EGYM seated row",
+              "notes": "Chest on the pad, drive elbows back, 1 s squeeze.",
+              "alternatives": [
+                "Seated_Cable_Rows"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-arms",
+          "name": "Arms (light)",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "tri",
+              "exerciseId": "Triceps_Pushdown_-_Rope_Attachment",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45
+            },
+            {
+              "id": "bi",
+              "exerciseId": "Standing_Biceps_Cable_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Light, pump work only. Elbows fresh for tomorrow."
+            }
+          ]
+        },
+        {
+          "id": "core",
+          "name": "Core",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "abc",
+              "exerciseId": "Ab_Crunch_Machine",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Slow eccentric, exhale on the crunch."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-shoulders-arms",
+      "name": "Shoulders, Triceps, Forearms, Core",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "custom-thoracic-rotation-quadruped",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Arm_Circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "External_Rotation_with_Band",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 12
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-5",
+              "exerciseId": "Standing_Military_Press",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 8
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Empty bar, then one lighter set (not logged)."
+            }
+          ]
+        },
+        {
+          "id": "main",
+          "name": "Main",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "ohp",
+              "exerciseId": "Standing_Military_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                }
+              ],
+              "restSeconds": 120,
+              "prepSeconds": 30,
+              "notes": "Glutes and abs tight, bar path close to the face, lock out overhead. No back arch.",
+              "alternatives": [
+                "Dumbbell_Shoulder_Press",
+                "Seated_Barbell_Military_Press"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-delts",
+          "name": "Delts",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "lat",
+              "exerciseId": "Side_Lateral_Raise",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Lead with the elbows, slight forward lean."
+            },
+            {
+              "id": "rear",
+              "exerciseId": "Reverse_Flyes",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Bent over or chest on the incline bench. Thumbs down, elbows slightly bent.",
+              "alternatives": [
+                "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-arms",
+          "name": "Triceps and biceps",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "skull",
+              "exerciseId": "EZ-Bar_Skullcrusher",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Lower behind the head, elbows pointing up. Nippard favourite.",
+              "alternatives": [
+                "Lying_Triceps_Press"
+              ]
+            },
+            {
+              "id": "ham",
+              "exerciseId": "Hammer_Curls",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Neutral grip, no swing.",
+              "alternatives": [
+                "Cross_Body_Hammer_Curl"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tri2",
+          "name": "Triceps long head",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "oh-tri",
+              "exerciseId": "Standing_Dumbbell_Triceps_Extension",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Two hands on one dumbbell, full stretch behind the head."
+            }
+          ]
+        },
+        {
+          "id": "ss-fore",
+          "name": "Forearm extensors",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "rev-curl",
+              "exerciseId": "Reverse_Barbell_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "EZ bar",
+              "notes": "Slow, 3 s lowering. Stop if the outside of the elbow becomes painful.",
+              "alternatives": [
+                "Standing_Dumbbell_Reverse_Curl"
+              ]
+            },
+            {
+              "id": "wr-ext",
+              "exerciseId": "Palms-Down_Dumbbell_Wrist_Curl_Over_A_Bench",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Forearms on the bench, light weight, full range."
+            }
+          ]
+        },
+        {
+          "id": "ss-core",
+          "name": "Core anti-rotation",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "pallof",
+              "exerciseId": "Pallof_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "unilateral": true,
+              "equipment": "Band anchored to the rack",
+              "notes": "Hips and shoulders square, press slowly, hold 1 s."
+            },
+            {
+              "id": "side-plank",
+              "exerciseId": "Side_Bridge",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 40
+                },
+                {
+                  "type": "duration",
+                  "seconds": 40
+                },
+                {
+                  "type": "duration",
+                  "seconds": 40
+                }
+              ],
+              "restSeconds": 45,
+              "unilateral": true,
+              "notes": "Straight line head to feet, top hip stacked."
+            }
+          ]
+        },
+        {
+          "id": "rice",
+          "name": "Rice bucket",
+          "type": "circuit",
+          "rounds": 2,
+          "restBetweenRoundsSeconds": 20,
+          "blocks": [
+            {
+              "id": "r1",
+              "exerciseId": "custom-rice-bucket-open-close",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r2",
+              "exerciseId": "custom-rice-bucket-wrist-flex-ext",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r3",
+              "exerciseId": "custom-rice-bucket-pronation-supination",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r4",
+              "exerciseId": "custom-rice-bucket-finger-dig",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r5",
+              "exerciseId": "custom-rice-bucket-circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office-full-body-b",
+      "name": "Full Body B (machines)",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "Bicycling_Stationary",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 180
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Easy pace."
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "custom-leg-swings",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "Smith_Machine_Squat",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 8
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Empty bar, then one lighter set (not logged)."
+            }
+          ]
+        },
+        {
+          "id": "main",
+          "name": "Main",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "sq",
+              "exerciseId": "Smith_Machine_Squat",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                }
+              ],
+              "restSeconds": 120,
+              "prepSeconds": 30,
+              "notes": "Feet slightly forward, controlled depth, brace before each rep.",
+              "alternatives": [
+                "Leg_Press",
+                "Smith_Single-Leg_Split_Squat"
+              ]
+            },
+            {
+              "id": "chin",
+              "exerciseId": "Chin-Up",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "equipment": "Assisted station, counterweight",
+              "assisted": true,
+              "notes": "Supinated grip. Set the counterweight so 8-12 reps are hard. Progress by lowering the counterweight, not raising it.",
+              "alternatives": [
+                "Underhand_Cable_Pulldowns"
+              ]
+            },
+            {
+              "id": "idp",
+              "exerciseId": "Incline_Dumbbell_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "notes": "Low incline, 15-30 degrees.",
+              "alternatives": [
+                "Leverage_Incline_Chest_Press",
+                "Smith_Machine_Incline_Bench_Press"
+              ]
+            },
+            {
+              "id": "dips",
+              "exerciseId": "Dips_-_Triceps_Version",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 90,
+              "equipment": "Assisted station, counterweight",
+              "assisted": true,
+              "notes": "Elbows tucked, torso upright for triceps. Lower the counterweight over time.",
+              "alternatives": [
+                "Bench_Dips"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-legs",
+          "name": "Legs accessories",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "le",
+              "exerciseId": "Leg_Extensions",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "EGYM leg extension"
+            },
+            {
+              "id": "lc",
+              "exerciseId": "Seated_Leg_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "EGYM leg curl"
+            }
+          ]
+        },
+        {
+          "id": "rear",
+          "name": "Rear delts",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "fp",
+              "exerciseId": "Face_Pull",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 60,
+              "notes": "Rope at face height, pull to the forehead, external rotation at the end."
+            }
+          ]
+        },
+        {
+          "id": "ss-core",
+          "name": "Core",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "hlr",
+              "exerciseId": "Hanging_Leg_Raise",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "Captain's chair / station",
+              "notes": "Use the station's arm pads or hang from the bar. No swinging."
+            },
+            {
+              "id": "chop",
+              "exerciseId": "Standing_Cable_Wood_Chop",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 10
+                }
+              ],
+              "restSeconds": 45,
+              "unilateral": true,
+              "notes": "High to low, arms straight, rotate through the hips."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-arms",
+      "name": "Arms, Forearms, Core, Neck 2",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "Arm_Circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Wrist_Circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "EZ-Bar_Curl",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 12
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Empty bar, then one lighter set (not logged)."
+            },
+            {
+              "id": "wu-5",
+              "exerciseId": "Close-Grip_Barbell_Bench_Press",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 10
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Empty bar, then one lighter set (not logged)."
+            }
+          ]
+        },
+        {
+          "id": "ss-heavy",
+          "name": "Heavy arms",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 20,
+          "blocks": [
+            {
+              "id": "ez",
+              "exerciseId": "EZ-Bar_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                }
+              ],
+              "restSeconds": 75,
+              "prepSeconds": 30,
+              "notes": "Exercise number one of the day. Heavy, elbows pinned, no body swing. Full lockout at the bottom.",
+              "alternatives": [
+                "Close-Grip_Standing_Barbell_Curl"
+              ]
+            },
+            {
+              "id": "cgb",
+              "exerciseId": "Close-Grip_Barbell_Bench_Press",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                },
+                {
+                  "type": "repRange",
+                  "min": 6,
+                  "max": 8
+                }
+              ],
+              "restSeconds": 75,
+              "notes": "Grip just inside shoulder width, elbows tucked, touch the lower chest.",
+              "alternatives": [
+                "Close-Grip_EZ-Bar_Press",
+                "Dips_-_Triceps_Version"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss-iso",
+          "name": "Isolation",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "spider",
+              "exerciseId": "Spider_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "Dumbbells, chest on the incline bench",
+              "notes": "Chest on the incline bench, arms hanging vertical. Squeeze hard at the top, this is the shortened position.",
+              "alternatives": [
+                "Concentration_Curls"
+              ]
+            },
+            {
+              "id": "oh-ez",
+              "exerciseId": "Standing_Overhead_Barbell_Triceps_Extension",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "equipment": "EZ bar",
+              "notes": "Elbows close to the head, full stretch."
+            }
+          ]
+        },
+        {
+          "id": "ss-fore",
+          "name": "Forearm flexors",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "zott",
+              "exerciseId": "Zottman_Curl",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                },
+                {
+                  "type": "repRange",
+                  "min": 10,
+                  "max": 12
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Curl supinated, rotate to pronated at the top, lower slowly (3 s)."
+            },
+            {
+              "id": "wr-curl",
+              "exerciseId": "Palms-Up_Dumbbell_Wrist_Curl_Over_A_Bench",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 15,
+                  "max": 20
+                },
+                {
+                  "type": "repRange",
+                  "min": 15,
+                  "max": 20
+                },
+                {
+                  "type": "repRange",
+                  "min": 15,
+                  "max": 20
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Let the dumbbell roll to the fingertips at the bottom."
+            }
+          ]
+        },
+        {
+          "id": "ss-core",
+          "name": "Core",
+          "type": "superset",
+          "restBetweenExercisesSeconds": 15,
+          "blocks": [
+            {
+              "id": "hollow",
+              "exerciseId": "custom-hollow-body-hold",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                },
+                {
+                  "type": "duration",
+                  "seconds": 30
+                },
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Lower back glued to the floor."
+            },
+            {
+              "id": "suitcase",
+              "exerciseId": "custom-suitcase-carry",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                },
+                {
+                  "type": "duration",
+                  "seconds": 30
+                },
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 45,
+              "unilateral": true,
+              "equipment": "One 24-30 kg kettlebell",
+              "notes": "Do not lean. Log the kettlebell weight."
+            }
+          ]
+        },
+        {
+          "id": "neck",
+          "name": "Neck session 2",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "n-flex",
+              "exerciseId": "custom-bench-neck-flexion-bridge",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Thibarmy Intermediate, session 2 (heavier). Skip bridges if the neck feels tight from fatigue; do banded work instead."
+            },
+            {
+              "id": "n-ext",
+              "exerciseId": "custom-bench-neck-extension-bridge",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                },
+                {
+                  "type": "repRange",
+                  "min": 8,
+                  "max": 10
+                }
+              ],
+              "restSeconds": 45,
+              "notes": "Progress the arm position only when the current one is easy for two sessions in a row."
+            },
+            {
+              "id": "n-pshrug",
+              "exerciseId": "Clean_Shrug",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 5,
+                  "max": 5
+                },
+                {
+                  "type": "repRange",
+                  "min": 5,
+                  "max": 5
+                },
+                {
+                  "type": "repRange",
+                  "min": 5,
+                  "max": 5
+                }
+              ],
+              "restSeconds": 75,
+              "equipment": "Barbell, straps allowed",
+              "notes": "Hang power shrug: small hip dip, drive up and shrug, hold the top, slow lowering. Heavier than a strict shrug.",
+              "alternatives": [
+                "Barbell_Shrug"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rice",
+          "name": "Rice bucket",
+          "type": "circuit",
+          "rounds": 2,
+          "restBetweenRoundsSeconds": 20,
+          "blocks": [
+            {
+              "id": "r1",
+              "exerciseId": "custom-rice-bucket-open-close",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r2",
+              "exerciseId": "custom-rice-bucket-wrist-flex-ext",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r3",
+              "exerciseId": "custom-rice-bucket-pronation-supination",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r4",
+              "exerciseId": "custom-rice-bucket-finger-dig",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "r5",
+              "exerciseId": "custom-rice-bucket-circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tests-week-10",
+      "name": "Tests: deadlift, pull-ups, grip",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "custom-foam-roller-thoracic-extension",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Cat_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-4",
+              "exerciseId": "Scapular_Pull-Up",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 8
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        },
+        {
+          "id": "dl-test",
+          "name": "Deadlift 3RM",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "dl-ramp",
+              "exerciseId": "Barbell_Deadlift",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 3
+                },
+                {
+                  "type": "reps",
+                  "reps": 3
+                },
+                {
+                  "type": "reps",
+                  "reps": 3
+                },
+                {
+                  "type": "reps",
+                  "reps": 3
+                }
+              ],
+              "restSeconds": 180,
+              "prepSeconds": 45,
+              "notes": "Ramp: ~60%, ~75%, ~85%, then a 3RM attempt. Add a 5th set only if the 4th was clean and clearly not maximal."
+            }
+          ]
+        },
+        {
+          "id": "pu-test",
+          "name": "Pull-up max",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "pu-max",
+              "exerciseId": "Pullups",
+              "sets": [
+                {
+                  "type": "amrap",
+                  "seconds": 120
+                }
+              ],
+              "restSeconds": 180,
+              "notes": "One all-out set of strict pull-ups, full hang, chin over bar. Then one set with the 7 kg vest for reference."
+            },
+            {
+              "id": "pu-vest",
+              "exerciseId": "Pullups",
+              "sets": [
+                {
+                  "type": "amrap",
+                  "seconds": 120,
+                  "weightKg": 7
+                }
+              ],
+              "restSeconds": 0,
+              "equipment": "Weighted vest 7 kg"
+            }
+          ]
+        },
+        {
+          "id": "grip-test",
+          "name": "Grip",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "fc-max",
+              "exerciseId": "Farmers_Walk",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 90
+                }
+              ],
+              "restSeconds": 120,
+              "equipment": "2 x 30 kg kettlebells",
+              "notes": "Hold as long as possible standing still or walking. If you drop before the timer, note the actual time in the block notes."
+            }
+          ]
+        },
+        {
+          "id": "neck",
+          "name": "Neck session 1 (light)",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "n-pro",
+              "exerciseId": "custom-banded-neck-protraction",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 60,
+              "equipment": "Yellow band"
+            },
+            {
+              "id": "n-ret",
+              "exerciseId": "custom-banded-neck-retraction",
+              "sets": [
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                },
+                {
+                  "type": "repRange",
+                  "min": 12,
+                  "max": 15
+                }
+              ],
+              "restSeconds": 60,
+              "equipment": "Orange band"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "repeat": "1-4",
+      "days": {
+        "mon": "home-pull-grip",
+        "tue": "office-full-body-a",
+        "wed": "home-shoulders-arms",
+        "thu": "office-full-body-b",
+        "fri": "home-arms"
+      }
+    },
+    {
+      "repeat": "5-8",
+      "days": {
+        "mon": "home-pull-grip",
+        "tue": "office-full-body-a",
+        "wed": "home-shoulders-arms",
+        "thu": "office-full-body-b",
+        "fri": "home-arms"
+      },
+      "overrides": {
+        "home-pull-grip": {
+          "dl": {
+            "setCount": 4
+          },
+          "n-pro": {
+            "setCount": 4
+          },
+          "n-ret": {
+            "setCount": 4
+          }
+        },
+        "office-full-body-a": {
+          "lp": {
+            "setCount": 4
+          }
+        },
+        "home-shoulders-arms": {
+          "ohp": {
+            "setCount": 4
+          },
+          "oh-tri": {
+            "setCount": 3
+          }
+        },
+        "office-full-body-b": {
+          "chin": {
+            "setCount": 4
+          }
+        },
+        "home-arms": {
+          "ez": {
+            "setCount": 5
+          },
+          "n-flex": {
+            "setCount": 4
+          },
+          "n-ext": {
+            "setCount": 4
+          },
+          "n-pshrug": {
+            "setCount": 5
+          }
+        }
+      }
+    },
+    {
+      "week": 9,
+      "days": {
+        "mon": "home-pull-grip",
+        "tue": "office-full-body-a",
+        "wed": "home-shoulders-arms",
+        "thu": "office-full-body-b",
+        "fri": "home-arms"
+      },
+      "overrides": {
+        "home-pull-grip": {
+          "dl": {
+            "setCount": 2
+          },
+          "pu": {
+            "setCount": 3
+          },
+          "fc": {
+            "setCount": 2
+          },
+          "hlr": {
+            "setCount": 2
+          },
+          "inc-curl": {
+            "setCount": 2
+          },
+          "n-pro": {
+            "setCount": 2
+          },
+          "n-ret": {
+            "setCount": 2
+          },
+          "n-git": {
+            "setCount": 2
+          }
+        },
+        "office-full-body-a": {
+          "lp": {
+            "setCount": 2
+          },
+          "cp": {
+            "setCount": 2
+          },
+          "lpd": {
+            "setCount": 2
+          },
+          "lc": {
+            "setCount": 2
+          },
+          "be": {
+            "setCount": 2
+          },
+          "row": {
+            "setCount": 2
+          },
+          "tri": {
+            "setCount": 1
+          },
+          "bi": {
+            "setCount": 1
+          },
+          "abc": {
+            "setCount": 2
+          }
+        },
+        "home-shoulders-arms": {
+          "ohp": {
+            "setCount": 2
+          },
+          "lat": {
+            "setCount": 2
+          },
+          "rear": {
+            "setCount": 2
+          },
+          "skull": {
+            "setCount": 2
+          },
+          "ham": {
+            "setCount": 2
+          },
+          "oh-tri": {
+            "setCount": 1
+          },
+          "rev-curl": {
+            "setCount": 2
+          },
+          "wr-ext": {
+            "setCount": 2
+          },
+          "pallof": {
+            "setCount": 2
+          },
+          "side-plank": {
+            "setCount": 2
+          }
+        },
+        "office-full-body-b": {
+          "sq": {
+            "setCount": 2
+          },
+          "chin": {
+            "setCount": 2
+          },
+          "idp": {
+            "setCount": 2
+          },
+          "dips": {
+            "setCount": 2
+          },
+          "le": {
+            "setCount": 1
+          },
+          "lc": {
+            "setCount": 1
+          },
+          "fp": {
+            "setCount": 2
+          },
+          "hlr": {
+            "setCount": 2
+          },
+          "chop": {
+            "setCount": 2
+          }
+        },
+        "home-arms": {
+          "ez": {
+            "setCount": 2
+          },
+          "cgb": {
+            "setCount": 2
+          },
+          "spider": {
+            "setCount": 2
+          },
+          "oh-ez": {
+            "setCount": 2
+          },
+          "zott": {
+            "setCount": 2
+          },
+          "wr-curl": {
+            "setCount": 2
+          },
+          "hollow": {
+            "setCount": 2
+          },
+          "suitcase": {
+            "setCount": 2
+          },
+          "n-flex": {
+            "setCount": 2
+          },
+          "n-ext": {
+            "setCount": 2
+          },
+          "n-pshrug": {
+            "setCount": 2
+          }
+        }
+      }
+    },
+    {
+      "week": 10,
+      "days": {
+        "mon": "tests-week-10",
+        "tue": "office-full-body-a",
+        "wed": "home-shoulders-arms",
+        "thu": "office-full-body-b",
+        "fri": "home-arms"
+      }
+    }
+  ],
+  "library": [
+    {
+      "id": "mobility-15",
+      "name": "15 min mobility (thoracic, shoulders, hips)",
+      "sections": [
+        {
+          "id": "circ",
+          "name": "Mobility circuit",
+          "type": "circuit",
+          "rounds": 2,
+          "restBetweenRoundsSeconds": 20,
+          "blocks": [
+            {
+              "id": "m1",
+              "exerciseId": "custom-foam-roller-thoracic-extension",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 60
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m2",
+              "exerciseId": "Cat_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m3",
+              "exerciseId": "custom-thoracic-rotation-quadruped",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 60
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m4",
+              "exerciseId": "Worlds_Greatest_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 60
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m5",
+              "exerciseId": "Intermediate_Hip_Flexor_and_Quad_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 60
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m6",
+              "exerciseId": "External_Rotation_with_Band",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 15
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m7",
+              "exerciseId": "Band_Pull_Apart",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 20
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m8",
+              "exerciseId": "Kneeling_Forearm_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m9",
+              "exerciseId": "Chin_To_Chest_Stretch",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "m10",
+              "exerciseId": "Dead_Bug",
+              "sets": [
+                {
+                  "type": "reps",
+                  "reps": 10
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rower-zone2",
+      "name": "Rower zone 2 (25 min)",
+      "sections": [
+        {
+          "id": "row",
+          "name": "Steady row",
+          "type": "standard",
+          "blocks": [
+            {
+              "id": "row",
+              "exerciseId": "Rowing_Stationary",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 1500
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Conversational pace, nose breathing if possible, ~20-22 strokes per minute."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heavy-bag",
+      "name": "Heavy bag technique (4 x 5 min)",
+      "sections": [
+        {
+          "id": "wu",
+          "name": "Warm up",
+          "type": "circuit",
+          "rounds": 1,
+          "restBetweenRoundsSeconds": 0,
+          "blocks": [
+            {
+              "id": "wu-1",
+              "exerciseId": "Rope_Jumping",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 120
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-2",
+              "exerciseId": "Arm_Circles",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 30
+                }
+              ],
+              "restSeconds": 0
+            },
+            {
+              "id": "wu-3",
+              "exerciseId": "custom-leg-swings",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 45
+                }
+              ],
+              "restSeconds": 0
+            }
+          ]
+        },
+        {
+          "id": "rounds",
+          "name": "Rounds",
+          "type": "circuit",
+          "rounds": 4,
+          "restBetweenRoundsSeconds": 60,
+          "blocks": [
+            {
+              "id": "bag",
+              "exerciseId": "custom-heavy-bag-round",
+              "sets": [
+                {
+                  "type": "duration",
+                  "seconds": 300
+                }
+              ],
+              "restSeconds": 0,
+              "notes": "Technique, not intensity. Relax the shoulders, breathe out on impact."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
