@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthGate } from '@/features/auth';
 import { ComponentsPage } from './dev/ComponentsPage';
 
-// Routing skeleton. The tab shell (step 7) replaces the index route; auth (step 5)
-// wraps protected routes. /dev/components is a hidden gallery, reachable only by URL.
+// Routing skeleton. The tab shell (step 7) replaces the protected index route.
+// /dev/components is a hidden, unauthenticated gallery reachable only by URL.
 export function App() {
   return (
     <BrowserRouter>
@@ -11,10 +12,12 @@ export function App() {
         <Route
           path="*"
           element={
-            <main className="flex min-h-screen-safe flex-col items-center justify-center bg-app px-gutter text-center">
-              <p className="font-display text-display-lg uppercase text-accent">Forge</p>
-              <p className="mt-2 font-ui text-body text-ink-muted">Design system ready</p>
-            </main>
+            <AuthGate>
+              <main className="flex min-h-screen-safe flex-col items-center justify-center bg-app px-gutter text-center">
+                <p className="font-display text-display-lg uppercase text-accent">Forge</p>
+                <p className="mt-2 font-ui text-body text-ink-muted">Signed in. Shell in step 7.</p>
+              </main>
+            </AuthGate>
           }
         />
       </Routes>
