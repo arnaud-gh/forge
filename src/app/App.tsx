@@ -1,12 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthGate } from '@/features/auth';
 import { ComponentsPage } from './dev/ComponentsPage';
+import { PwaUpdater } from './PwaUpdater';
 
 // Routing skeleton. The tab shell (step 7) replaces the protected index route.
 // /dev/components is a hidden, unauthenticated gallery reachable only by URL.
 export function App() {
   return (
     <BrowserRouter>
+      <PwaUpdater />
       <Routes>
         <Route path="/dev/components" element={<ComponentsPage />} />
         <Route
