@@ -10,6 +10,7 @@ node_modules
 dist
 dev-dist
 coverage
+*.tsbuildinfo
 
 # Local env files (never commit real secrets)
 .env
