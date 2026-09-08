@@ -14,14 +14,20 @@
     "getReady": "Get ready",
     "warmup": "Warm-up · not logged",
     "amrap": "As many as possible",
+    "total": "Total {{n}} reps",
+    "prep": "Prep",
     "rest": "Rest",
     "of": "of {{time}}"
   },
   "field": {
     "weight": "Weight",
     "assist": "Assist",
-    "reps": "Reps"
+    "reps": "Reps",
+    "chunks": "Chunks"
   },
+  "prepNext": "Next: {{name}}",
+  "startSet": "Start set",
+  "addPrep": "+30 s",
   "effort": {
     "easy": "EASY",
     "ideal": "IDEAL",

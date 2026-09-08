@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, EffortSelector, GigaTimer, Stepper, type Effort } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
-import { isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
+import { elapsedMs, isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
 import { targetReps } from './format';
 import type { SetStep } from './types';
@@ -18,26 +18,32 @@ export function SetView({ step, now }: SetViewProps) {
   const restartSetTimer = usePlayerStore((s) => s.restartSetTimer);
 
   const target = step.target;
-  const hasWeight = target.weightKg !== undefined || step.assisted;
+  const isRestPause = target.type === 'restPause';
   const isDuration = target.type === 'duration';
   const isAmrap = target.type === 'amrap';
+  const hasWeight = target.weightKg !== undefined || step.assisted;
 
-  // Local, per-step input state (reset when the step changes).
+  // reps doubles as CHUNKS for rest-pause.
   const [weight, setWeight] = useState(target.weightKg ?? 0);
-  const [reps, setReps] = useState(isAmrap ? 0 : targetReps(target));
+  const [reps, setReps] = useState(isAmrap ? 0 : isRestPause ? 1 : targetReps(target));
   useEffect(() => {
     setWeight(target.weightKg ?? 0);
-    setReps(target.type === 'amrap' ? 0 : targetReps(target));
+    setReps(target.type === 'amrap' ? 0 : target.type === 'restPause' ? 1 : targetReps(target));
   }, [step.key, target]);
 
-  const remaining = setTimer ? remainingSeconds(setTimer, now) : 0;
+  // Rest-pause runs a stopwatch (count up); everything else is a countdown.
+  const stopwatch = isRestPause;
+  const displaySeconds = setTimer
+    ? stopwatch
+      ? Math.floor(elapsedMs(setTimer, now) / 1000)
+      : remainingSeconds(setTimer, now)
+    : 0;
   const progress =
-    setTimer && setTimer.durationMs > 0
+    setTimer && !stopwatch && setTimer.durationMs > 0
       ? 1 - remainingMs(setTimer, now) / setTimer.durationMs
       : undefined;
-  const expired = setTimer ? isExpired(setTimer, now) : false;
+  const expired = !stopwatch && setTimer ? isExpired(setTimer, now) : false;
 
-  // Soft cue when the timer hits zero (WRK-8). Full audio lands in M3.
   useEffect(() => {
     if (expired && 'vibrate' in navigator) navigator.vibrate?.(180);
   }, [expired]);
@@ -46,9 +52,13 @@ export function SetView({ step, now }: SetViewProps) {
 
   const caption = !step.logged
     ? t('caption.warmup')
-    : isAmrap
-      ? t('caption.amrap')
-      : t('caption.setTime');
+    : isRestPause
+      ? t('caption.total', { n: target.type === 'restPause' ? target.totalReps : 0 })
+      : isAmrap
+        ? t('caption.amrap')
+        : expired
+          ? t('timesUp')
+          : t('caption.setTime');
 
   const letter = String.fromCharCode(65 + step.sectionBlockIndex);
   const label =
@@ -64,11 +74,17 @@ export function SetView({ step, now }: SetViewProps) {
         : t('kicker.set', { n: step.setIndex + 1, total: step.setCount });
 
   const logWithEffort = (effort: Effort) => {
-    logCurrentSet({
-      ...(hasWeight ? { weightKg: weight } : {}),
-      reps,
-      effort,
-    });
+    if (isRestPause) {
+      logCurrentSet({
+        ...(hasWeight ? { weightKg: weight } : {}),
+        chunks: reps,
+        reps: target.type === 'restPause' ? target.totalReps : undefined,
+        seconds: setTimer ? Math.floor(elapsedMs(setTimer, Date.now()) / 1000) : undefined,
+        effort,
+      });
+    } else {
+      logCurrentSet({ ...(hasWeight ? { weightKg: weight } : {}), reps, effort });
+    }
   };
 
   const logDone = () => {
@@ -95,11 +111,11 @@ export function SetView({ step, now }: SetViewProps) {
         <div className="mt-8">
           {setTimer ? (
             <GigaTimer
-              seconds={remaining}
+              seconds={displaySeconds}
               variant="set"
               progress={progress}
-              caption={expired ? t('timesUp') : caption}
-              pulse={!paused && remaining <= 5 && remaining > 0}
+              caption={caption}
+              pulse={!paused && !stopwatch && displaySeconds <= 5 && displaySeconds > 0}
             />
           ) : (
             <p className="text-center font-ui text-label-sm uppercase tracking-[0.14em] text-ink-muted">
@@ -108,7 +124,7 @@ export function SetView({ step, now }: SetViewProps) {
           )}
         </div>
 
-        {step.logged && setTimer && (
+        {step.logged && setTimer && !stopwatch && (
           <div className="mt-6 flex justify-center">
             <button
               type="button"
@@ -143,7 +159,7 @@ export function SetView({ step, now }: SetViewProps) {
                 />
               )}
               <Stepper
-                label={t('field.reps')}
+                label={isRestPause ? t('field.chunks') : t('field.reps')}
                 value={reps}
                 onChange={setReps}
                 step={1}

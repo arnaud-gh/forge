@@ -9,6 +9,7 @@ import { useNow } from './useNow';
 import { PlayerTopBar } from './PlayerTopBar';
 import { SetView } from './SetView';
 import { RestView } from './RestView';
+import { PrepView } from './PrepView';
 import { SummaryView } from './SummaryView';
 import { assembleWorkout, plannedSetCount } from './sequencer';
 import { persistWorkout } from './saveWorkout';
@@ -81,6 +82,7 @@ export function PlayerScreen() {
     <div className="flex min-h-[100dvh] flex-col bg-app pt-safe">
       <PlayerTopBar now={now} onClose={() => setConfirmClose(true)} />
 
+      {phase === 'prep' && step ? <PrepView step={step} now={now} /> : null}
       {phase === 'set' && step ? <SetView step={step} now={now} /> : null}
       {phase === 'rest' ? <RestView now={now} /> : null}
 

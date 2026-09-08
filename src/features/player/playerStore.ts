@@ -30,6 +30,7 @@ interface PlayerStore {
   sessionTimer: TimerState | null;
   setTimer: TimerState | null;
   restTimer: TimerState | null;
+  prepTimer: TimerState | null;
 
   currentStep: () => SetStep | null;
   start: (session: Session, context: WorkoutContext, timers: TimerDefaults) => void;
@@ -40,6 +41,9 @@ interface PlayerStore {
   advanceAfterRest: () => void;
   skipRest: () => void;
   addRest: (seconds: number) => void;
+  /** Begin the set from the prep phase (or when prep elapses). */
+  beginSet: () => void;
+  addPrep: (seconds: number) => void;
 
   pauseSetTimer: () => void;
   resumeSetTimer: () => void;
@@ -57,7 +61,10 @@ interface PlayerStore {
 }
 
 function makeSetTimer(step: SetStep | undefined, now: number): TimerState | null {
-  if (!step || step.setTimerSeconds <= 0) return null;
+  if (!step) return null;
+  // Rest-pause has no countdown: a stopwatch counts up instead (WRK-5).
+  if (step.target.type === 'restPause') return createTimer(HUGE_MS, now);
+  if (step.setTimerSeconds <= 0) return null;
   return createTimer(step.setTimerSeconds * 1000, now);
 }
 
@@ -81,6 +88,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       sessionTimer: s.sessionTimer,
       setTimer: s.setTimer,
       restTimer: s.restTimer,
+      prepTimer: s.prepTimer,
     };
     void saveInProgressWorkout(snapshot);
   };
@@ -88,16 +96,28 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
   const goToStep = (index: number, now: number) => {
     const { steps } = get();
     if (index >= steps.length) {
-      set({ phase: 'summary', setTimer: null, restTimer: null });
+      set({ phase: 'summary', setTimer: null, restTimer: null, prepTimer: null });
       persist();
       return;
     }
-    set({
-      currentIndex: index,
-      phase: 'set',
-      setTimer: makeSetTimer(steps[index], now),
-      restTimer: null,
-    });
+    const step = steps[index]!;
+    if (step.prepSeconds > 0) {
+      set({
+        currentIndex: index,
+        phase: 'prep',
+        prepTimer: createTimer(step.prepSeconds * 1000, now),
+        setTimer: null,
+        restTimer: null,
+      });
+    } else {
+      set({
+        currentIndex: index,
+        phase: 'set',
+        setTimer: makeSetTimer(step, now),
+        restTimer: null,
+        prepTimer: null,
+      });
+    }
     persist();
   };
 
@@ -113,6 +133,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     sessionTimer: null,
     setTimer: null,
     restTimer: null,
+    prepTimer: null,
 
     currentStep: () => {
       const { steps, currentIndex } = get();
@@ -122,18 +143,21 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     start: (session, context, timers) => {
       const now = Date.now();
       const steps = buildSteps(session, timers);
+      const first = steps[0];
+      const startsWithPrep = !!first && first.prepSeconds > 0;
       set({
         active: true,
         context,
         steps,
         logs: {},
         currentIndex: 0,
-        phase: 'set',
+        phase: startsWithPrep ? 'prep' : 'set',
         paused: false,
         startedAt: now,
         sessionTimer: createTimer(HUGE_MS, now),
-        setTimer: makeSetTimer(steps[0], now),
+        setTimer: startsWithPrep ? null : makeSetTimer(first, now),
         restTimer: null,
+        prepTimer: startsWithPrep ? createTimer(first.prepSeconds * 1000, now) : null,
       });
       persist();
     },
@@ -153,6 +177,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         sessionTimer: saved.sessionTimer,
         setTimer: saved.setTimer,
         restTimer: saved.restTimer,
+        prepTimer: saved.prepTimer,
       });
       return true;
     },
@@ -194,6 +219,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       persist();
     },
 
+    beginSet: () => {
+      const step = get().currentStep();
+      set({ phase: 'set', setTimer: makeSetTimer(step ?? undefined, Date.now()), prepTimer: null });
+      persist();
+    },
+    addPrep: (seconds) => {
+      const { prepTimer } = get();
+      if (prepTimer) set({ prepTimer: addTime(prepTimer, seconds * 1000) });
+      persist();
+    },
+
     pauseSetTimer: () => {
       const { setTimer } = get();
       if (setTimer) set({ setTimer: pauseTimer(setTimer, Date.now()) });
@@ -219,28 +255,31 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     pauseWorkout: () => {
       const now = Date.now();
       const { sessionTimer, setTimer, restTimer } = get();
+      const { prepTimer } = get();
       set({
         paused: true,
         sessionTimer: sessionTimer ? pauseTimer(sessionTimer, now) : null,
         setTimer: setTimer ? pauseTimer(setTimer, now) : null,
         restTimer: restTimer ? pauseTimer(restTimer, now) : null,
+        prepTimer: prepTimer ? pauseTimer(prepTimer, now) : null,
       });
       persist();
     },
     resumeWorkout: () => {
       const now = Date.now();
-      const { sessionTimer, setTimer, restTimer } = get();
+      const { sessionTimer, setTimer, restTimer, prepTimer } = get();
       set({
         paused: false,
         sessionTimer: sessionTimer ? resumeTimer(sessionTimer, now) : null,
         setTimer: setTimer ? resumeTimer(setTimer, now) : null,
         restTimer: restTimer ? resumeTimer(restTimer, now) : null,
+        prepTimer: prepTimer ? resumeTimer(prepTimer, now) : null,
       });
       persist();
     },
 
     finish: () => {
-      set({ phase: 'summary', setTimer: null, restTimer: null });
+      set({ phase: 'summary', setTimer: null, restTimer: null, prepTimer: null });
       persist();
     },
 
@@ -262,6 +301,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         sessionTimer: null,
         setTimer: null,
         restTimer: null,
+        prepTimer: null,
       }),
   };
 });

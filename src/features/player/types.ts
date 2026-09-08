@@ -31,7 +31,8 @@ export interface LoggedSet {
   weightKg?: number;
   bodyweight?: boolean;
   reps?: number;
-  seconds?: number; // duration / amrap
+  seconds?: number; // duration / amrap / rest-pause elapsed
+  chunks?: number; // rest-pause: number of chunks
   effort?: Effort;
   status: 'done' | 'skipped';
   loggedAt: number;
@@ -44,6 +45,7 @@ export interface SavedWorkoutSet {
   weightKg?: number;
   reps?: number;
   seconds?: number;
+  chunks?: number;
   effort?: Effort;
   status: 'done' | 'skipped';
 }
@@ -68,7 +70,7 @@ export interface SavedWorkout {
 }
 
 // Persisted in-progress runtime (IndexedDB, WRK-20).
-export type PlayerPhase = 'set' | 'rest' | 'summary';
+export type PlayerPhase = 'prep' | 'set' | 'rest' | 'summary';
 
 export interface WorkoutContext {
   programId: string | null;
@@ -90,6 +92,7 @@ export interface InProgressWorkout {
   sessionTimer: TimerAnchor;
   setTimer: TimerAnchor | null;
   restTimer: TimerAnchor | null;
+  prepTimer: TimerAnchor | null;
 }
 
 export interface TimerAnchor {
