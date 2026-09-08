@@ -5,7 +5,7 @@ import { Button, Stepper } from '@/components';
 import { cn } from '@/lib/cn';
 import { unlockAudio } from '@/lib/audio';
 import { loadBreathingSetup, saveBreathingSetup } from '@/lib/storage';
-import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
+import { useSettings } from '@/features/settings/settingsStore';
 import type { BreathingSpeed } from '@/features/settings/types';
 import { useBreathingStore } from './breathingStore';
 import { speedDurations } from './machine';
@@ -52,16 +52,17 @@ export function BreatheScreen() {
   const { t } = useTranslation('breathe');
   const navigate = useNavigate();
   const start = useBreathingStore((s) => s.start);
-  const settings = DEFAULT_SETTINGS.breathing;
+  const live = useSettings();
+  const settings = live.breathing;
 
   const [speed, setSpeed] = useState<BreathingSpeed>('standard');
   const [rounds, setRounds] = useState(3);
   const [breaths, setBreaths] = useState(30);
   const [audioOpen, setAudioOpen] = useState(false);
-  const [visualFeedback, setVisualFeedback] = useState(DEFAULT_SETTINGS.audio.visualFeedback);
-  const [haptic, setHaptic] = useState(DEFAULT_SETTINGS.audio.hapticFeedback);
-  const [gong, setGong] = useState(DEFAULT_SETTINGS.audio.pingGong);
-  const [breathingSounds, setBreathingSounds] = useState(DEFAULT_SETTINGS.audio.breathingSounds);
+  const [visualFeedback, setVisualFeedback] = useState(live.audio.visualFeedback);
+  const [haptic, setHaptic] = useState(live.audio.hapticFeedback);
+  const [gong, setGong] = useState(live.audio.pingGong);
+  const [breathingSounds, setBreathingSounds] = useState(live.audio.breathingSounds);
 
   // Remembered between sessions.
   useEffect(() => {

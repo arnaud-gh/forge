@@ -2,5 +2,10 @@
   "title": "History",
   "body": "Completed workouts and breathing sessions will appear here.",
   "empty": "No workouts yet. Finish a session and it shows up here.",
-  "meta": "{{min}} min · {{sets}} sets · {{volume}} kg"
+  "meta": "{{min}} min · {{sets}} sets · {{volume}} kg",
+  "workouts": "Workouts",
+  "calendar": "Calendar",
+  "filterAll": "All",
+  "filterProgram": "Program",
+  "filterExtra": "Extra"
 }

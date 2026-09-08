@@ -1,5 +1,5 @@
 import type { Effort } from '@/components';
-import type { ProgramSet, SectionType, SetType } from '@/features/program';
+import type { AddedBlockSpec, ProgramSet, SectionType, SetType } from '@/features/program';
 import type { PreviousSet, RecommendationKind } from '@/features/progression';
 
 // One set to perform, in execution order (produced by the sequencer).
@@ -95,12 +95,28 @@ export interface WorkoutContext {
   isStandalone: boolean;
 }
 
+/** In-workout structural changes, offered as "keep for future sessions" (WRK-22). */
+export interface WorkoutChanges {
+  swaps: Record<string, { from: string; to: string }>;
+  removedBlocks: string[];
+  addedBlocks: AddedBlockSpec[];
+  setCounts: Record<string, { from: number; to: number }>;
+}
+
+export const EMPTY_CHANGES: WorkoutChanges = {
+  swaps: {},
+  removedBlocks: [],
+  addedBlocks: [],
+  setCounts: {},
+};
+
 export interface InProgressWorkout {
   context: WorkoutContext;
   steps: SetStep[];
   logs: Record<string, LoggedSet>;
   /** Per-block free-text notes (WRK-17). */
   notes: Record<string, string>;
+  changes?: WorkoutChanges;
   currentIndex: number;
   phase: PlayerPhase;
   paused: boolean;

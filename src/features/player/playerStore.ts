@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Session, TimerDefaults } from '@/features/program';
+import type { Block, Section, Session, TimerDefaults } from '@/features/program';
 import {
   addTime,
   createTimer,
@@ -14,13 +14,15 @@ import {
   saveInProgressWorkout,
 } from '@/lib/storage';
 import { buildSteps } from './sequencer';
-import type {
-  InProgressWorkout,
-  LoggedSet,
-  PlanProgression,
-  PlayerPhase,
-  SetStep,
-  WorkoutContext,
+import {
+  EMPTY_CHANGES,
+  type InProgressWorkout,
+  type LoggedSet,
+  type PlanProgression,
+  type PlayerPhase,
+  type SetStep,
+  type WorkoutChanges,
+  type WorkoutContext,
 } from './types';
 
 const HUGE_MS = Number.MAX_SAFE_INTEGER;
@@ -31,6 +33,7 @@ interface PlayerStore {
   steps: SetStep[];
   logs: Record<string, LoggedSet>;
   notes: Record<string, string>;
+  changes: WorkoutChanges;
   currentIndex: number;
   phase: PlayerPhase;
   paused: boolean;
@@ -75,6 +78,10 @@ interface PlayerStore {
   swapBlock: (blockId: string, exerciseId: string) => void;
   setBlockNote: (blockId: string, note: string) => void;
   removeBlock: (blockId: string) => void;
+  /** Append a block to a section for this workout (WRK-16). */
+  addBlock: (sectionId: string, block: Block, timers: TimerDefaults) => void;
+  /** Add or remove sets for a block in this workout (WRK-14 edit sets). */
+  editSetCount: (blockId: string, count: number) => void;
   undoLastSet: () => void;
 
   pauseWorkout: () => void;
@@ -107,6 +114,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       steps: s.steps,
       logs: s.logs,
       notes: s.notes,
+      changes: s.changes,
       currentIndex: s.currentIndex,
       phase: s.phase,
       paused: s.paused,
@@ -153,6 +161,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     steps: [],
     logs: {},
     notes: {},
+    changes: EMPTY_CHANGES,
     currentIndex: 0,
     phase: 'set',
     paused: false,
@@ -180,6 +189,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         steps,
         logs: {},
         notes: {},
+        changes: EMPTY_CHANGES,
         currentIndex: 0,
         phase: startsWithPrep ? 'prep' : 'set',
         paused: false,
@@ -203,6 +213,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         steps: saved.steps,
         logs: saved.logs,
         notes: saved.notes ?? {},
+        changes: saved.changes ?? EMPTY_CHANGES,
         currentIndex: saved.currentIndex,
         phase: saved.phase,
         paused: saved.paused,
@@ -320,12 +331,92 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     swapBlock: (blockId, exerciseId) => {
       // Replace the exercise for every step of the block; clear its weight pre-fill
       // (WRK-15: planned weight cleared on swap unless the new exercise has history).
-      const steps = get().steps.map((s) =>
-        s.blockId === blockId
-          ? { ...s, exerciseId, prefillWeightKg: null, previous: undefined }
-          : s,
-      );
-      set({ steps });
+      const { steps, changes } = get();
+      const original =
+        changes.swaps[blockId]?.from ?? steps.find((s) => s.blockId === blockId)?.exerciseId;
+      set({
+        steps: steps.map((s) =>
+          s.blockId === blockId
+            ? { ...s, exerciseId, prefillWeightKg: null, previous: undefined }
+            : s,
+        ),
+        changes: {
+          ...changes,
+          swaps: { ...changes.swaps, [blockId]: { from: original ?? exerciseId, to: exerciseId } },
+        },
+      });
+      persist();
+    },
+
+    addBlock: (sectionId, block, timers) => {
+      const { steps, currentIndex, changes } = get();
+      const ref = steps.find((s) => s.sectionId === sectionId) ?? steps[steps.length - 1];
+      const section: Section = {
+        id: ref?.sectionId ?? sectionId,
+        name: ref?.sectionName ?? '',
+        type: 'standard',
+        blocks: [block],
+      };
+      const added = buildSteps({ id: 'added', name: '', sections: [section] }, timers);
+      let insertAt = steps.length;
+      for (let i = steps.length - 1; i >= 0; i -= 1) {
+        if (steps[i]!.sectionId === section.id) {
+          insertAt = i + 1;
+          break;
+        }
+      }
+      set({
+        steps: [...steps.slice(0, insertAt), ...added, ...steps.slice(insertAt)],
+        currentIndex: insertAt <= currentIndex ? currentIndex + added.length : currentIndex,
+        changes: {
+          ...changes,
+          addedBlocks: [...changes.addedBlocks, { sectionId: section.id, block }],
+        },
+      });
+      persist();
+    },
+
+    editSetCount: (blockId, count) => {
+      const { steps, logs, currentIndex, changes } = get();
+      const blockSteps = steps.filter((s) => s.blockId === blockId && s.round === 1);
+      const current = blockSteps.length;
+      if (current === 0 || count < 1 || count === current) return;
+      const currentKey = steps[currentIndex]?.key;
+      let next = [...steps];
+      const nextLogs = { ...logs };
+      if (count > current) {
+        const last = blockSteps[current - 1]!;
+        const at = next.indexOf(last) + 1;
+        const extra: SetStep[] = [];
+        for (let i = current; i < count; i += 1) {
+          const copy: SetStep = {
+            ...last,
+            key: `${last.sectionId}:${blockId}:1:${i}`,
+            setIndex: i,
+          };
+          delete copy.previous;
+          extra.push(copy);
+        }
+        next.splice(at, 0, ...extra);
+      } else {
+        const drop = new Set(blockSteps.slice(count).map((s) => s.key));
+        next = next.filter((s) => !drop.has(s.key));
+        for (const key of drop) delete nextLogs[key];
+      }
+      next = next.map((s) => (s.blockId === blockId ? { ...s, setCount: count } : s));
+      const relocated = currentKey ? next.findIndex((s) => s.key === currentKey) : -1;
+      set({
+        steps: next,
+        logs: nextLogs,
+        currentIndex: relocated >= 0 ? relocated : Math.min(currentIndex, next.length - 1),
+        changes: {
+          ...changes,
+          setCounts: {
+            ...changes.setCounts,
+            [blockId]: { from: changes.setCounts[blockId]?.from ?? current, to: count },
+          },
+        },
+      });
       persist();
     },
 
@@ -335,14 +426,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     },
 
     removeBlock: (blockId) => {
-      const { steps, currentIndex, logs } = get();
+      const { steps, currentIndex, logs, changes } = get();
       const nextLogs = { ...logs };
       for (const step of steps) {
         if (step.blockId === blockId && !nextLogs[step.key]) {
           nextLogs[step.key] = { status: 'skipped', loggedAt: Date.now() };
         }
       }
-      set({ logs: nextLogs });
+      set({
+        logs: nextLogs,
+        changes: { ...changes, removedBlocks: [...new Set([...changes.removedBlocks, blockId])] },
+      });
       // If the current step is in the removed block, advance past it.
       if (steps[currentIndex]?.blockId === blockId) {
         let next = currentIndex;
@@ -396,6 +490,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         steps: [],
         logs: {},
         notes: {},
+        changes: EMPTY_CHANGES,
         currentIndex: 0,
         phase: 'set',
         paused: false,

@@ -5,6 +5,7 @@ import { ExtraSessionsScreen } from '@/features/home/ExtraSessionsScreen';
 import { BreatheScreen } from '@/features/breathing/BreatheScreen';
 import { BreathingSessionScreen } from '@/features/breathing/BreathingSessionScreen';
 import { HistoryScreen } from '@/features/history/HistoryScreen';
+import { WorkoutDetail } from '@/features/history/WorkoutDetail';
 import { SettingsScreen } from '@/features/settings/SettingsScreen';
 import { PlayerScreen } from '@/features/player/PlayerScreen';
 import { PreSessionOverview } from '@/features/player/PreSessionOverview';
@@ -38,6 +39,7 @@ export function App() {
             <Route path="/extra" element={<ExtraSessionsScreen />} />
             <Route path="/breathe" element={<BreatheScreen />} />
             <Route path="/history" element={<HistoryScreen />} />
+            <Route path="/history/workout/:id" element={<WorkoutDetail />} />
             <Route path="/settings" element={<SettingsScreen />} />
           </Route>
           <Route path="/session/:sessionId" element={<PreSessionOverview />} />

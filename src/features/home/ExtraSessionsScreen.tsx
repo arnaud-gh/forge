@@ -7,7 +7,7 @@ import {
   useProgramStore,
   type Session,
 } from '@/features/program';
-import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
+import { useSettingsStore } from '@/features/settings/settingsStore';
 import { minutesOf } from './homeData';
 
 function BackChevron() {
@@ -54,7 +54,9 @@ export function ExtraSessionsScreen() {
       ) : (
         <ul className="space-y-3">
           {library.map((session) => {
-            const minutes = minutesOf(estimateSessionSeconds(session, DEFAULT_SETTINGS.timers));
+            const minutes = minutesOf(
+              estimateSessionSeconds(session, useSettingsStore.getState().settings.timers),
+            );
             return (
               <li key={session.id}>
                 <button

@@ -22,4 +22,5 @@ export { Toast } from './Toast';
 export { TabBar } from './TabBar';
 export type { TabItem } from './TabBar';
 export { EmptyState } from './EmptyState';
+export { Toggle } from './Toggle';
 export * from './icons';

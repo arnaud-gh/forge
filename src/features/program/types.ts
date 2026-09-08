@@ -110,8 +110,22 @@ export interface Program {
 export type SessionState = 'todo' | 'done' | 'missed';
 export type ProgramStatus = 'active' | 'completed' | 'archived';
 
-/** Kept swaps/adds/removes per sessionId (PRG-7). Populated in M3. */
-export type ProgramOverlay = Record<string, unknown>;
+/** A block added by the user, appended to a section (WRK-16/22). */
+export interface AddedBlockSpec {
+  sectionId: string;
+  block: Block;
+}
+
+/** Kept user changes for one session (PRG-7, WRK-22). */
+export interface SessionOverlay {
+  swaps?: Record<string, string>; // blockId -> exerciseId
+  removedBlocks?: string[];
+  setCounts?: Record<string, number>;
+  addedBlocks?: AddedBlockSpec[];
+}
+
+/** Kept changes per sessionId (PRG-7). */
+export type ProgramOverlay = Record<string, SessionOverlay>;
 
 export interface ProgramProgress {
   /** ISO date (yyyy-mm-dd) of the Monday the program started (PRG-3). */

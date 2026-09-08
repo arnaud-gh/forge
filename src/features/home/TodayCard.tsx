@@ -8,7 +8,7 @@ import {
   type Program,
   type ProgramProgress,
 } from '@/features/program';
-import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
+import { useSettingsStore } from '@/features/settings/settingsStore';
 import { findSession, minutesOf } from './homeData';
 
 type TodayCardProps = {
@@ -36,7 +36,9 @@ function SessionCard({
   const resolved = resolveSession(program, sessionId, weekIndex) ?? base;
   if (!base || !resolved) return null;
 
-  const minutes = minutesOf(estimateSessionSeconds(resolved, DEFAULT_SETTINGS.timers));
+  const minutes = minutesOf(
+    estimateSessionSeconds(resolved, useSettingsStore.getState().settings.timers),
+  );
   const exercises = countExercises(resolved);
 
   return (

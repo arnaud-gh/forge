@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Sheet } from '@/components';
 import { cn } from '@/lib/cn';
-import { exerciseName, useProgramStore } from '@/features/program';
+import { exerciseName, useProgramStore, type Block } from '@/features/program';
+import { useSettingsStore } from '@/features/settings/settingsStore';
+import { ExercisePicker, type AddExerciseConfig } from '@/features/library/ExercisePicker';
 import { usePlayerStore } from './playerStore';
 import { SwipeRow, type SwipeAction } from './SwipeRow';
 import type { LoggedSet, SetStep } from './types';
@@ -54,6 +56,24 @@ function groupSteps(steps: SetStep[]): SectionGroup[] {
   return sections;
 }
 
+/** Build a program Block from the add-exercise picker config (WRK-16). */
+function blockFromConfig(c: AddExerciseConfig): Block {
+  const set =
+    c.targetType === 'duration'
+      ? { type: 'duration' as const, seconds: c.repsMax }
+      : c.targetType === 'reps'
+        ? { type: 'reps' as const, reps: c.repsMax }
+        : { type: 'repRange' as const, min: Math.max(1, c.repsMax - 4), max: c.repsMax };
+  return {
+    id: `added-${Date.now().toString(36)}`,
+    exerciseId: c.exercise.id,
+    sets: Array.from({ length: c.sets }, () => ({ ...set })),
+    restSeconds: c.restSeconds,
+  };
+}
+
+// Session list (WRK-14): per-set status, go to set, skip section, and per-row
+// swipe actions (notes, swap via the library picker, delete), edit sets, add exercise.
 export function SessionListSheet({ open, onClose }: Props) {
   const { t } = useTranslation('player');
   const program = useProgramStore((s) => s.program);
@@ -66,17 +86,31 @@ export function SessionListSheet({ open, onClose }: Props) {
   const swapBlock = usePlayerStore((s) => s.swapBlock);
   const setBlockNote = usePlayerStore((s) => s.setBlockNote);
   const removeBlock = usePlayerStore((s) => s.removeBlock);
+  const addBlock = usePlayerStore((s) => s.addBlock);
+  const editSetCount = usePlayerStore((s) => s.editSetCount);
 
   const [noteBlock, setNoteBlock] = useState<string | null>(null);
   const [noteText, setNoteText] = useState('');
   const [swapStep, setSwapStep] = useState<SetStep | null>(null);
+  const [addOpen, setAddOpen] = useState(false);
 
   const sections = groupSteps(steps);
   const name = (id: string) => (program ? exerciseName(program, id) : id);
+  const currentSectionId = steps[currentIndex]?.sectionId ?? sections[0]?.sectionId ?? '';
 
   return (
     <>
-      <Sheet open={open} onClose={onClose} title={t('list.title')} closeLabel={t('list.title')}>
+      <Sheet
+        open={open}
+        onClose={onClose}
+        title={t('list.title')}
+        closeLabel={t('list.title')}
+        footer={
+          <Button variant="secondary" size="md" onClick={() => setAddOpen(true)}>
+            {t('list.addExercise')}
+          </Button>
+        }
+      >
         <div className="space-y-6 pb-4">
           <p className="font-ui text-meta text-ink-faint">{t('list.swipeHint')}</p>
           {sections.map((section) => (
@@ -105,16 +139,12 @@ export function SessionListSheet({ open, onClose }: Props) {
                         setNoteText(notes[block.blockId] ?? '');
                       },
                     },
-                    ...(block.first.alternatives.length > 0
-                      ? [
-                          {
-                            key: 'swap',
-                            label: t('list.swap'),
-                            tone: 'accent' as const,
-                            onPress: () => setSwapStep(block.first),
-                          },
-                        ]
-                      : []),
+                    {
+                      key: 'swap',
+                      label: t('list.swap'),
+                      tone: 'accent' as const,
+                      onPress: () => setSwapStep(block.first),
+                    },
                     {
                       key: 'delete',
                       label: t('list.delete'),
@@ -122,6 +152,7 @@ export function SessionListSheet({ open, onClose }: Props) {
                       onPress: () => removeBlock(block.blockId),
                     },
                   ];
+                  const canEditSets = section.type !== 'circuit';
                   return (
                     <li key={block.blockId}>
                       <SwipeRow actions={actions}>
@@ -156,6 +187,31 @@ export function SessionListSheet({ open, onClose }: Props) {
                                 </button>
                               );
                             })}
+                            {canEditSets && (
+                              <span className="ml-1 inline-flex items-center gap-1 font-ui text-label-xs uppercase tracking-[0.14em] text-ink-muted">
+                                {t('list.sets')}
+                                <button
+                                  type="button"
+                                  aria-label="−"
+                                  onClick={() =>
+                                    editSetCount(block.blockId, block.first.setCount - 1)
+                                  }
+                                  className="h-7 w-7 rounded-xs border border-line-strong text-ink-secondary"
+                                >
+                                  −
+                                </button>
+                                <button
+                                  type="button"
+                                  aria-label="+"
+                                  onClick={() =>
+                                    editSetCount(block.blockId, block.first.setCount + 1)
+                                  }
+                                  className="h-7 w-7 rounded-xs border border-line-strong text-ink-secondary"
+                                >
+                                  +
+                                </button>
+                              </span>
+                            )}
                           </div>
                           {notes[block.blockId] && (
                             <p className="mt-2 font-ui text-meta text-ink-faint">
@@ -170,7 +226,6 @@ export function SessionListSheet({ open, onClose }: Props) {
               </ul>
             </section>
           ))}
-          <p className="font-ui text-meta text-ink-ghost">{t('list.addExercise')}</p>
         </div>
       </Sheet>
 
@@ -202,30 +257,31 @@ export function SessionListSheet({ open, onClose }: Props) {
         />
       </Sheet>
 
-      {/* Swap picker (program alternatives) */}
-      <Sheet
-        open={swapStep !== null}
-        onClose={() => setSwapStep(null)}
-        title={t('list.swapTitle')}
-        closeLabel={t('list.swapTitle')}
-      >
-        <ul className="space-y-2 pb-4">
-          {swapStep?.alternatives.map((altId) => (
-            <li key={altId}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (swapStep) swapBlock(swapStep.blockId, altId);
-                  setSwapStep(null);
-                }}
-                className="w-full rounded-sm border border-line px-4 py-3 text-left font-display text-display-xs uppercase text-ink"
-              >
-                {name(altId)}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </Sheet>
+      {/* Swap picker: program alternatives first, then library "Similar" (WRK-15) */}
+      {swapStep && (
+        <ExercisePicker
+          mode="swap"
+          open
+          onClose={() => setSwapStep(null)}
+          baseExerciseId={swapStep.exerciseId}
+          programAlternatives={swapStep.alternatives}
+          onSelect={(ex) => swapBlock(swapStep.blockId, ex.id)}
+        />
+      )}
+
+      {/* Add exercise over the full library (WRK-16) */}
+      <ExercisePicker
+        mode="add"
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
+        onAdd={(config) =>
+          addBlock(
+            currentSectionId,
+            blockFromConfig(config),
+            useSettingsStore.getState().settings.timers,
+          )
+        }
+      />
     </>
   );
 }

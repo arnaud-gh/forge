@@ -1,4 +1,12 @@
-import type { Block, Program, ProgramSet, Session, SessionOverrides, Weekday } from './types';
+import type {
+  Block,
+  Program,
+  ProgramSet,
+  Session,
+  SessionOverlay,
+  SessionOverrides,
+  Weekday,
+} from './types';
 import { WEEKDAYS } from './types';
 
 // Importer + validation (PRD PRG-1, section 8 rules). Hand-written validator that
@@ -199,12 +207,14 @@ export function resizeBlock(block: Block, setCount: number): Block {
 
 /**
  * Resolve a concrete session for a given week, applying that week's setCount
- * overrides. Returns null if the session id is unknown.
+ * overrides and then the user's kept overlay (swaps, removes, set counts,
+ * added blocks; PRG-7). Returns null if the session id is unknown.
  */
 export function resolveSession(
   program: Program,
   sessionId: string,
   weekIndex: number,
+  overlay?: SessionOverlay,
 ): Session | null {
   const base =
     program.sessions.find((s) => s.id === sessionId) ??
@@ -212,16 +222,26 @@ export function resolveSession(
   if (!base) return null;
 
   const weekOverrides = expandSchedule(program).get(weekIndex)?.overrides?.[sessionId];
-  if (!weekOverrides) return base;
+  const removed = new Set(overlay?.removedBlocks ?? []);
 
-  return {
-    ...base,
-    sections: base.sections.map((section) => ({
-      ...section,
-      blocks: section.blocks.map((block) => {
-        const setCount = weekOverrides[block.id]?.setCount;
-        return setCount !== undefined ? resizeBlock(block, setCount) : block;
-      }),
-    })),
-  };
+  const sections = base.sections.map((section) => {
+    const blocks = section.blocks
+      .filter((block) => !removed.has(block.id))
+      .map((block) => {
+        let next = block;
+        const weekCount = weekOverrides?.[block.id]?.setCount;
+        if (weekCount !== undefined) next = resizeBlock(next, weekCount);
+        const keptCount = overlay?.setCounts?.[block.id];
+        if (keptCount !== undefined) next = resizeBlock(next, keptCount);
+        const swap = overlay?.swaps?.[block.id];
+        if (swap) next = { ...next, exerciseId: swap };
+        return next;
+      });
+    const added = (overlay?.addedBlocks ?? [])
+      .filter((a) => a.sectionId === section.id)
+      .map((a) => a.block);
+    return { ...section, blocks: [...blocks, ...added] };
+  });
+
+  return { ...base, sections };
 }

@@ -32,11 +32,32 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Precache the app shell so it loads offline after the first visit.
-        globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2}'],
+        // Precache the app shell (+ the exercise library JSON) so it loads offline.
+        globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2,json}'],
+        // Exercise photos (9MB) are runtime-cached, not precached; the Settings
+        // "Download for offline" step warms this cache.
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: '/index.html',
-        // Cache Google Fonts so type renders offline (Anton, Archivo).
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/exercises/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'exercise-images',
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/raw\.githubusercontent\.com\/.*\.jpg$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'exercise-images-remote',
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          // Google Fonts so type renders offline (Anton, Archivo).
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'StaleWhileRevalidate',

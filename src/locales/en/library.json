@@ -1,0 +1,29 @@
+{
+  "detail": {
+    "instructions": "Instructions",
+    "equipment": "Equipment",
+    "muscles": "Muscles",
+    "history": "History",
+    "noHistory": "No logged sets yet.",
+    "maxWeight": "Max weight per session"
+  },
+  "picker": {
+    "search": "Search exercises",
+    "fromProgram": "From your program",
+    "similar": "Similar",
+    "all": "All exercises",
+    "noResults": "No exercises match.",
+    "muscle": "Muscle",
+    "equipment": "Equipment",
+    "any": "Any",
+    "confirm": "Confirm",
+    "add": "Add",
+    "sets": "Sets",
+    "reps": "Reps target",
+    "rest": "Rest (s)",
+    "targetType": "Target",
+    "repRange": "Rep range",
+    "repsFixed": "Fixed reps",
+    "duration": "Duration"
+  }
+}

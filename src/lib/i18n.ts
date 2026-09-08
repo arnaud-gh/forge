@@ -8,13 +8,14 @@ import breathe from '@/locales/en/breathe.json';
 import history from '@/locales/en/history.json';
 import settings from '@/locales/en/settings.json';
 import player from '@/locales/en/player.json';
+import library from '@/locales/en/library.json';
 
 // One namespace per feature (PRD section 4). English only in v1; French is the
 // first planned translation, so all strings live in resource files from day one.
 export const defaultNS = 'common';
 
 export const resources = {
-  en: { common, auth, home, breathe, history, settings, player },
+  en: { common, auth, home, breathe, history, settings, player, library },
 } as const;
 
 void i18n.use(initReactI18next).init({

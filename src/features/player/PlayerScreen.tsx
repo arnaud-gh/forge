@@ -41,6 +41,8 @@ export function PlayerScreen() {
   const undoLastSet = usePlayerStore((s) => s.undoLastSet);
 
   const markSessionDone = useProgramStore((s) => s.markSessionDone);
+  const saveOverlay = useProgramStore((s) => s.saveOverlay);
+  const changes = usePlayerStore((s) => s.changes);
 
   const [confirmClose, setConfirmClose] = useState(false);
   const [listOpen, setListOpen] = useState(false);
@@ -74,7 +76,7 @@ export function PlayerScreen() {
   const remaining =
     plannedSetCount(steps) - Object.values(logs).filter((l) => l.status === 'done').length;
 
-  const onSave = async (note: string) => {
+  const onSave = async (note: string, keep: Record<string, boolean>) => {
     if (!context) return;
     setSaving(true);
     try {
@@ -84,6 +86,28 @@ export function PlayerScreen() {
       if (!context.isStandalone && context.weekIndex !== null) {
         await markSessionDone(context.weekIndex, context.sessionId);
       }
+      // Kept changes go into the program overlay for this sessionId (WRK-22, PRG-7).
+      const kept = {
+        swaps: Object.fromEntries(
+          Object.entries(changes.swaps)
+            .filter(([b]) => keep[`swap:${b}`] !== false)
+            .map(([b, s]) => [b, s.to]),
+        ),
+        removedBlocks: changes.removedBlocks.filter((b) => keep[`remove:${b}`] !== false),
+        addedBlocks: changes.addedBlocks.filter((a) => keep[`add:${a.block.id}`] !== false),
+        setCounts: Object.fromEntries(
+          Object.entries(changes.setCounts)
+            .filter(([b]) => keep[`sets:${b}`] !== false)
+            .map(([b, c]) => [b, c.to]),
+        ),
+      };
+      const hasKept =
+        Object.keys(kept.swaps).length +
+          kept.removedBlocks.length +
+          kept.addedBlocks.length +
+          Object.keys(kept.setCounts).length >
+        0;
+      if (hasKept && !context.isStandalone) await saveOverlay(context.sessionId, kept);
       await discard(); // clears the in-progress record
       navigate('/', { replace: true });
     } catch {
@@ -92,7 +116,7 @@ export function PlayerScreen() {
   };
 
   if (phase === 'summary') {
-    return <SummaryView onSave={(note) => void onSave(note)} saving={saving} />;
+    return <SummaryView onSave={(note, keep) => void onSave(note, keep)} saving={saving} />;
   }
 
   return (

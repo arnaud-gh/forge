@@ -70,8 +70,17 @@
     "notePlaceholder": "Note for this exercise",
     "saveNote": "Save note",
     "swapTitle": "Swap exercise",
-    "noAlternatives": "No alternatives in the program. Library swaps arrive in M5.",
-    "addExercise": "Add exercise (M5)"
+    "noAlternatives": "No alternatives in the program.",
+    "addExercise": "Add exercise",
+    "sets": "Sets"
+  },
+  "changes": {
+    "title": "You changed this session",
+    "keep": "Keep for future sessions",
+    "swap": "Swapped {{from}} for {{to}}",
+    "removed": "Removed {{name}}",
+    "added": "Added {{name}}",
+    "sets": "{{name}}: {{from}} to {{to}} sets"
   },
   "sectionType": {
     "standard": "Standard",

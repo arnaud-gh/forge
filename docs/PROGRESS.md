@@ -25,7 +25,7 @@ Update at every commit.
 - [x] PRG-4 (M) Session state todo/done/missed; Sunday 23:59 rollover
 - [x] PRG-5 (S) Program completed state
 - [x] PRG-6 (M) Standalone library sessions (never scheduled)
-- [ ] PRG-7 (M) Program overlay for kept swaps/adds/removes
+- [x] PRG-7 (M) Program overlay for kept swaps/adds/removes
 
 ## 7.2 Home
 
@@ -62,15 +62,15 @@ Update at every commit.
 - [x] WRK-11 (M) Prep time countdown
 - [x] WRK-12 (M) Superset and circuit execution
 - [x] WRK-13 (S) Skip section
-- [x] WRK-14 (M) Session list sheet + go-to-set/notes/swap (add-exercise + edit-sets: M5)
-- [ ] WRK-15 (M) Swap picker
-- [ ] WRK-16 (M) Add exercise
+- [x] WRK-14 (M) Session list sheet + go-to-set/edit sets/swap/notes/remove/add
+- [x] WRK-15 (M) Swap picker
+- [x] WRK-16 (M) Add exercise
 - [x] WRK-17 (M) Per-block notes
 - [x] WRK-18 (M) Global pause
 - [x] WRK-19 (M) Finish / discard
 - [x] WRK-20 (M) Persistence + resume at exact step; wake lock re-request
 - [x] WRK-21 (M) End-of-session summary
-- [ ] WRK-22 (M) Keep-changes flow into overlay
+- [x] WRK-22 (M) Keep-changes flow into overlay
 - [x] WRK-23 (S) Sounds and haptics
 - [x] WRK-24 (S) Undo last set
 
@@ -87,10 +87,10 @@ Update at every commit.
 
 ## 7.6 Exercise library
 
-- [ ] LIB-1 (M) Source: free-exercise-db fields
-- [ ] LIB-2 (M) Build step produces exercises.json (swap pool), precached images
-- [ ] LIB-3 (M) Program custom exercises + placeholder image
-- [ ] LIB-4 (M) Exercise detail sheet
+- [x] LIB-1 (M) Source: free-exercise-db fields
+- [x] LIB-2 (M) Build step produces exercises.json (swap pool), precached images
+- [x] LIB-3 (M) Program custom exercises + placeholder image
+- [x] LIB-4 (M) Exercise detail sheet
 - [ ] LIB-5 (B) RepDB illustrations
 
 ## 7.7 Breathing
@@ -112,17 +112,17 @@ Update at every commit.
 ## 7.8 History
 
 - [x] HIST-1 (M) Workout list
-- [ ] HIST-2 (M) Workout detail
-- [ ] HIST-3 (M) Exercise history + chart
+- [x] HIST-2 (M) Workout detail
+- [x] HIST-3 (M) Exercise history + chart
 - [x] HIST-4 (M) Breathing history (segmented control)
-- [ ] HIST-5 (S) Shared month calendar
+- [x] HIST-5 (S) Shared month calendar
 
 ## 7.9 Settings
 
 - [x] SET-1 (M) Account: Google profile, sign out (delivered in M0 auth; full Account UI in M5)
-- [ ] SET-2 (M) Workout timers (defaults created on bootstrap; UI in M5)
-- [ ] SET-3 (M) Equipment available (multi-select)
-- [ ] SET-4 (M) Breathing settings (defaults created on bootstrap; UI in M5)
-- [ ] SET-5 (M) Program: import, start date, reset
-- [ ] SET-6 (M) Units (kg) and language
+- [x] SET-2 (M) Workout timers (defaults created on bootstrap; UI in M5)
+- [x] SET-3 (M) Equipment available (multi-select)
+- [x] SET-4 (M) Breathing settings (defaults created on bootstrap; UI in M5)
+- [x] SET-5 (M) Program: import, start date, reset
+- [x] SET-6 (M) Units (kg) and language
 - [ ] SET-7 (B) Export data, delete account data

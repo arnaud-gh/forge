@@ -2,5 +2,60 @@
   "title": "Settings",
   "account": "Account",
   "signedIn": "Signed in",
-  "comingSoon": "Timers, equipment, breathing and program settings arrive in later milestones."
+  "comingSoon": "Timers, equipment, breathing and program settings arrive in later milestones.",
+  "program": {
+    "title": "Program",
+    "none": "No active program",
+    "startDate": "Start date",
+    "import": "Import JSON",
+    "importError": "Import failed",
+    "reset": "Reset program",
+    "resetTitle": "Reset program?",
+    "resetBody": "This clears your progress for the active program.",
+    "resetConfirm": "Reset"
+  },
+  "timers": {
+    "title": "Workout timers",
+    "secondsPerRep": "Seconds per rep",
+    "margin": "Set margin (s)",
+    "rest": "Default rest (s)",
+    "prep": "Default prep (s)"
+  },
+  "sounds": {
+    "title": "Sounds and haptics",
+    "sounds": "Sounds",
+    "vibration": "Vibration",
+    "beeps": "Rest countdown beeps"
+  },
+  "equipment": {
+    "title": "Equipment available",
+    "hint": "Used to filter swap suggestions."
+  },
+  "breathing": {
+    "title": "Breathing",
+    "inhale": "Inhale (s)",
+    "exhale": "Exhale (s)",
+    "recovery": "Recovery hold (s)",
+    "slow": "Slow",
+    "standard": "Standard",
+    "fast": "Fast"
+  },
+  "units": {
+    "title": "Units and language",
+    "units": "Units",
+    "kg": "kg",
+    "language": "Language",
+    "english": "English"
+  },
+  "offline": {
+    "title": "Offline",
+    "download": "Download for offline",
+    "downloading": "Downloading {{done}} / {{total}}",
+    "done": "Ready to work offline"
+  },
+  "about": {
+    "title": "About",
+    "fonts": "Type: Anton and Archivo (Google Fonts).",
+    "exercises": "Exercise data and images: free-exercise-db (public domain)."
+  }
 }

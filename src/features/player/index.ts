@@ -11,5 +11,6 @@ export type {
   InProgressWorkout,
   PlanProgression,
   BlockProgression,
+  WorkoutChanges,
 } from './types';
 export { getLastWorkoutForSession, computePlanProgression, blockHistory } from './history';

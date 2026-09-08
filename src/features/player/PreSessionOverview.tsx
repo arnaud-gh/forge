@@ -9,7 +9,7 @@ import {
   resolveSession,
   useProgramStore,
 } from '@/features/program';
-import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
+import { useSettingsStore } from '@/features/settings/settingsStore';
 import { unlockAudio } from '@/lib/audio';
 import { usePlayerStore, type PlanProgression, type WorkoutContext } from '@/features/player';
 import { computePlanProgression, getLastWorkoutForSession } from './history';
@@ -25,6 +25,7 @@ export function PreSessionOverview() {
   const params = useParams();
   const location = useLocation();
   const program = useProgramStore((s) => s.program);
+  const overlay = useProgramStore((s) => s.progress?.overlay);
   const start = usePlayerStore((s) => s.start);
 
   const state = (location.state ?? {}) as { weekIndex?: number; standalone?: boolean };
@@ -32,9 +33,10 @@ export function PreSessionOverview() {
   const isStandalone = state.standalone ?? false;
   const weekIndex = state.weekIndex ?? 1;
 
+  // Kept user changes (swaps, removes, set counts, added blocks) apply here (PRG-7).
   const resolved = useMemo(
-    () => (program ? resolveSession(program, sessionId, weekIndex) : null),
-    [program, sessionId, weekIndex],
+    () => (program ? resolveSession(program, sessionId, weekIndex, overlay?.[sessionId]) : null),
+    [program, sessionId, weekIndex, overlay],
   );
 
   const [plan, setPlan] = useState<PlanProgression>({});
@@ -58,7 +60,9 @@ export function PreSessionOverview() {
     );
   }
 
-  const minutes = minutesOf(estimateSessionSeconds(resolved, DEFAULT_SETTINGS.timers));
+  const minutes = minutesOf(
+    estimateSessionSeconds(resolved, useSettingsStore.getState().settings.timers),
+  );
   const exercises = countExercises(resolved);
 
   const onStart = () => {
@@ -70,7 +74,7 @@ export function PreSessionOverview() {
       weekIndex: isStandalone ? null : weekIndex,
       isStandalone,
     };
-    start(resolved, context, DEFAULT_SETTINGS.timers, plan);
+    start(resolved, context, useSettingsStore.getState().settings.timers, plan);
     navigate('/player');
   };
 

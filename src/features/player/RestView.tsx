@@ -4,7 +4,7 @@ import { Button, GigaTimer } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
-import { restEndCue } from './cues';
+import { restCountdownBeep, restEndCue } from './cues';
 
 type RestViewProps = { now: number };
 
@@ -36,6 +36,14 @@ export function RestView({ now }: RestViewProps) {
       advanceAfterRest();
     }
   }, [expired, paused, advanceAfterRest]);
+
+  // Countdown beeps on each of the last 3 seconds (toggleable, default off).
+  const lastBeep = useRef(-1);
+  useEffect(() => {
+    if (paused || remaining > 3 || remaining <= 0 || remaining === lastBeep.current) return;
+    lastBeep.current = remaining;
+    restCountdownBeep();
+  }, [remaining, paused]);
 
   const nextName = next && program ? exerciseName(program, next.exerciseId) : '';
 

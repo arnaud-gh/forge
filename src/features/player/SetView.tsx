@@ -7,6 +7,9 @@ import { usePlayerStore } from './playerStore';
 import { targetReps } from './format';
 import { RecommendationChip } from './RecommendationChip';
 import { setEndCue } from './cues';
+import { ExerciseImage } from '@/features/library/ExerciseImage';
+import { ExerciseDetailSheet } from '@/features/library/ExerciseDetailSheet';
+import { resolveExercise } from '@/features/library/exercises';
 import type { SetStep } from './types';
 
 type SetViewProps = { step: SetStep; now: number };
@@ -52,6 +55,8 @@ export function SetView({ step, now }: SetViewProps) {
   }, [expired]);
 
   const name = program ? exerciseName(program, step.exerciseId) : step.exerciseId;
+  const exercise = resolveExercise(program, step.exerciseId);
+  const [detailOpen, setDetailOpen] = useState(false);
 
   const caption = !step.logged
     ? t('caption.warmup')
@@ -106,10 +111,25 @@ export function SetView({ step, now }: SetViewProps) {
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex-1 overflow-y-auto px-gutter pt-6">
-        <p className="font-ui text-label-sm uppercase tracking-[0.14em] text-accent">{label}</p>
-        <h1 className="mt-1 font-display text-display-md uppercase leading-none text-ink">
-          {name}
-        </h1>
+        <div className="flex items-start gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="font-ui text-label-sm uppercase tracking-[0.14em] text-accent">{label}</p>
+            <button
+              type="button"
+              onClick={() => setDetailOpen(true)}
+              className="mt-1 text-left font-display text-display-md uppercase leading-none text-ink"
+            >
+              {name}
+            </button>
+          </div>
+          <button type="button" onClick={() => setDetailOpen(true)} className="shrink-0">
+            <ExerciseImage exercise={exercise} alternate className="h-20 w-20" />
+          </button>
+        </div>
+        <ExerciseDetailSheet
+          exerciseId={detailOpen ? step.exerciseId : null}
+          onClose={() => setDetailOpen(false)}
+        />
 
         {(step.recommendation && step.recommendation !== 'none') || step.previous ? (
           <div className="mt-3 flex flex-wrap items-center gap-3">

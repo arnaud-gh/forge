@@ -149,7 +149,7 @@ export function WeekStrip({
   );
 }
 
-function MonthGrid({
+export function MonthGrid({
   program,
   progress,
   today,
