@@ -38,6 +38,8 @@ export default defineConfig({
         // "Download for offline" step warms this cache.
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: '/index.html',
+        // Never serve the SPA shell for Firebase's reserved auth/config paths.
+        navigateFallbackDenylist: [/^\/__\//],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/exercises/'),

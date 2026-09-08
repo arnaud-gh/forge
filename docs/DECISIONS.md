@@ -1,5 +1,21 @@
 # Decisions
 
+## 2026-09-08 — M4 music tracks and SES-4 unilateral deferred
+
+BR-4 (bundled royalty-free music for breathing and retention phases) is deferred:
+it needs licence-checked audio assets sourced by the owner (PRD assumption 6).
+The breathing module ships gong, breath ticks and haptics (synthesised, no
+assets). SES-4 unilateral blocks (should) are not in the seed program and are
+deferred; the program can model left/right as two blocks (PRD assumption 5).
+
+## 2026-09-08 — Exercise library served as a static asset, images runtime-cached
+
+The generated library (772 exercises, 850 KB) is served from
+`public/data/exercises.json` and precached, rather than bundled into the JS, so
+first load stays small. The 78 program exercises' images (9.6 MB) are hosted
+with the app and cached on first view or via Settings > Download for offline;
+swap-pool exercises keep remote image URLs. Heavy routes are code-split (M6).
+
 ## 2026-09-08 — M3 session-list scope: library-dependent actions move to M5
 
 WRK-15 (swap "Similar" suggestions) and WRK-16 (add exercise) both pick from the

@@ -17,6 +17,15 @@ Update at every commit.
 - [x] Timers: lib/timers.ts (timestamp-based) + unit tests
 - [x] PROGRESS.md initialized
 
+## M6 Polish (milestone)
+
+- [x] Code-splitting: player, breathing, history, settings and the dev gallery are lazy routes
+- [x] Error boundary with recovery screen; readable importer errors surfaced in Settings
+- [x] Motion pass: set -> rest -> set transitions per DESIGN.md
+- [x] Service worker: shell + library precached, images runtime-cached, Firebase auth paths excluded
+- [x] Empty states on Home, History, Breathing, Extra sessions, exercise history
+- [ ] On-device performance and offline QA (owner, 2 weeks of use)
+
 ## 7.1 Program and schedule
 
 - [x] PRG-1 (M) One active program, imported from JSON (schema section 8)

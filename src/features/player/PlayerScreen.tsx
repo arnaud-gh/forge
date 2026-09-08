@@ -2,8 +2,17 @@ import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { keepWakeLockOnVisibility, releaseWakeLock, requestWakeLock } from '@/lib/wakeLock';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button, Dialog, Toast } from '@/components';
 import { completeCue } from './cues';
+
+// DESIGN.md motion: the logged set exits down 24px and fades (duration-screen,
+// ease-exit); the next screen enters from opacity 0, y +16 (duration-phase).
+const phaseVariants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+  exit: { opacity: 0, y: 24, transition: { duration: 0.3, ease: [0.4, 0, 1, 1] } },
+} as const;
 import { useProgramStore } from '@/features/program';
 import { usePlayerStore } from './playerStore';
 import { useNow } from './useNow';
@@ -128,9 +137,20 @@ export function PlayerScreen() {
       />
       <SessionListSheet open={listOpen} onClose={() => setListOpen(false)} />
 
-      {phase === 'prep' && step ? <PrepView step={step} now={now} /> : null}
-      {phase === 'set' && step ? <SetView step={step} now={now} /> : null}
-      {phase === 'rest' ? <RestView now={now} /> : null}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`${phase}:${step?.key ?? ''}`}
+          className="flex min-h-0 flex-1 flex-col"
+          variants={phaseVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          {phase === 'prep' && step ? <PrepView step={step} now={now} /> : null}
+          {phase === 'set' && step ? <SetView step={step} now={now} /> : null}
+          {phase === 'rest' ? <RestView now={now} /> : null}
+        </motion.div>
+      </AnimatePresence>
 
       {paused && (
         <div className="absolute inset-0 z-scrim flex flex-col items-center justify-center bg-black/85 px-gutter">

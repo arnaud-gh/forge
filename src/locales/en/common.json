@@ -15,5 +15,11 @@
   "pwa": {
     "updateAvailable": "A new version is available.",
     "offlineReady": "Ready to work offline."
-  }
+  },
+  "error": {
+    "title": "Something went wrong",
+    "body": "Your in-progress workout is safe. Reload to continue.",
+    "reload": "Reload"
+  },
+  "loading": "Loading"
 }
