@@ -65,7 +65,7 @@ export interface SavedWorkout {
 }
 
 // Persisted in-progress runtime (IndexedDB, WRK-20).
-export type PlayerPhase = 'set' | 'rest';
+export type PlayerPhase = 'set' | 'rest' | 'summary';
 
 export interface WorkoutContext {
   programId: string | null;
@@ -81,8 +81,10 @@ export interface InProgressWorkout {
   logs: Record<string, LoggedSet>;
   currentIndex: number;
   phase: PlayerPhase;
+  paused: boolean;
   startedAt: number;
-  /** Timestamp anchors for the active set / rest timer (serialisable). */
+  /** Serialisable timestamp anchors (TimerState shape). */
+  sessionTimer: TimerAnchor;
   setTimer: TimerAnchor | null;
   restTimer: TimerAnchor | null;
 }
