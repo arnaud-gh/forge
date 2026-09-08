@@ -9,6 +9,7 @@ import { PlayerScreen } from '@/features/player/PlayerScreen';
 import { ComponentsPage } from './dev/ComponentsPage';
 import { TabLayout } from './TabLayout';
 import { PwaUpdater } from './PwaUpdater';
+import { ProgramSync } from './ProgramSync';
 
 /**
  * App routing. /dev/components is a hidden, unauthenticated gallery. Everything
@@ -25,6 +26,7 @@ export function App() {
         <Route
           element={
             <AuthGate>
+              <ProgramSync />
               <Outlet />
             </AuthGate>
           }
