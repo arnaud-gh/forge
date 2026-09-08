@@ -42,6 +42,8 @@ interface PlayerStore {
   lastLoggedIndex: number | null;
   /** Bumped on each log so the UI can show the undo toast. */
   logSeq: number;
+  /** In-flow "Set logged / UNDO" row visible (WRK-24). */
+  undoOpen: boolean;
   sessionTimer: TimerState | null;
   setTimer: TimerState | null;
   restTimer: TimerState | null;
@@ -83,6 +85,7 @@ interface PlayerStore {
   /** Add or remove sets for a block in this workout (WRK-14 edit sets). */
   editSetCount: (blockId: string, count: number) => void;
   undoLastSet: () => void;
+  dismissUndo: () => void;
 
   pauseWorkout: () => void;
   resumeWorkout: () => void;
@@ -168,6 +171,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     startedAt: 0,
     lastLoggedIndex: null,
     logSeq: 0,
+    undoOpen: false,
     sessionTimer: null,
     setTimer: null,
     restTimer: null,
@@ -196,6 +200,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         startedAt: now,
         lastLoggedIndex: null,
         logSeq: 0,
+        undoOpen: false,
         sessionTimer: createTimer(HUGE_MS, now),
         setTimer: startsWithPrep ? null : makeSetTimer(first, now),
         restTimer: null,
@@ -246,16 +251,19 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
           logs: nextLogs,
           lastLoggedIndex: currentIndex,
           logSeq,
+          undoOpen: true,
           phase: 'rest',
           setTimer: null,
           restTimer: createTimer(step.restSeconds * 1000 + bonusMs, now),
         });
         persist();
       } else {
-        set({ logs: nextLogs, lastLoggedIndex: currentIndex, logSeq });
+        set({ logs: nextLogs, lastLoggedIndex: currentIndex, logSeq, undoOpen: true });
         goToStep(currentIndex + 1, now);
       }
     },
+
+    dismissUndo: () => set({ undoOpen: false }),
 
     undoLastSet: () => {
       const { lastLoggedIndex, steps, logs } = get();
@@ -263,7 +271,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       const key = steps[lastLoggedIndex]?.key;
       const nextLogs = { ...logs };
       if (key) delete nextLogs[key];
-      set({ logs: nextLogs, lastLoggedIndex: null });
+      set({ logs: nextLogs, lastLoggedIndex: null, undoOpen: false });
       goToStep(lastLoggedIndex, Date.now()); // reopens that set, cancels the rest
     },
 
@@ -497,6 +505,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         startedAt: 0,
         lastLoggedIndex: null,
         logSeq: 0,
+        undoOpen: false,
         sessionTimer: null,
         setTimer: null,
         restTimer: null,

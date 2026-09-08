@@ -4,6 +4,7 @@ import { Button, GigaTimer } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
+import { UndoBanner } from './UndoBanner';
 import type { SetStep } from './types';
 
 type PrepViewProps = { step: SetStep; now: number };
@@ -47,6 +48,7 @@ export function PrepView({ step, now }: PrepViewProps) {
           caption={t('caption.getReady')}
         />
         <p className="mt-8 font-ui text-body text-ink-muted">{t('prepNext', { name })}</p>
+        <UndoBanner />
       </div>
       <div className="border-t border-line bg-app px-gutter pb-safe pt-3">
         <div className="flex gap-2">

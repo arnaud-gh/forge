@@ -3,16 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { Button, EffortSelector, GigaTimer, Stepper, type Effort } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { elapsedMs, isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
+import { ExerciseDetailSheet } from '@/features/library/ExerciseDetailSheet';
+import { resolveExercise } from '@/features/library/exercises';
 import { usePlayerStore } from './playerStore';
 import { targetReps } from './format';
 import { RecommendationChip } from './RecommendationChip';
 import { setEndCue } from './cues';
-import { ExerciseImage } from '@/features/library/ExerciseImage';
-import { ExerciseDetailSheet } from '@/features/library/ExerciseDetailSheet';
-import { resolveExercise } from '@/features/library/exercises';
+import { UndoBanner } from './UndoBanner';
 import type { SetStep } from './types';
 
 type SetViewProps = { step: SetStep; now: number };
+
+// DESIGN.md full-screen photo recipe: cover, centre 30%, grayscale/contrast/dim,
+// then a scrim so the bottom third is effectively solid bg-app.
+const PHOTO_FILTER = 'grayscale(1) contrast(1.15) brightness(0.55)';
+const SCRIM =
+  'linear-gradient(180deg, rgba(11,13,16,.72) 0%, rgba(11,13,16,.42) 26%, rgba(11,13,16,.66) 46%, rgba(11,13,16,.94) 64%, #0B0D10 78%)';
 
 export function SetView({ step, now }: SetViewProps) {
   const { t } = useTranslation('player');
@@ -26,9 +32,9 @@ export function SetView({ step, now }: SetViewProps) {
   const isRestPause = target.type === 'restPause';
   const isDuration = target.type === 'duration';
   const isAmrap = target.type === 'amrap';
-  const hasWeight = target.weightKg !== undefined || step.assisted;
+  const plannedWeight = target.weightKg !== undefined || step.assisted;
 
-  // reps doubles as CHUNKS for rest-pause. Weight pre-fills from progression (PROG-1).
+  // Weight is always enterable (0 = bodyweight); pre-filled from progression (PROG-1).
   const prefill = step.prefillWeightKg ?? target.weightKg ?? 0;
   const [weight, setWeight] = useState(prefill);
   const [reps, setReps] = useState(isAmrap ? 0 : isRestPause ? 1 : targetReps(target));
@@ -37,7 +43,6 @@ export function SetView({ step, now }: SetViewProps) {
     setReps(target.type === 'amrap' ? 0 : target.type === 'restPause' ? 1 : targetReps(target));
   }, [step.key, step.prefillWeightKg, target]);
 
-  // Rest-pause runs a stopwatch (count up); everything else is a countdown.
   const stopwatch = isRestPause;
   const displaySeconds = setTimer
     ? stopwatch
@@ -56,7 +61,17 @@ export function SetView({ step, now }: SetViewProps) {
 
   const name = program ? exerciseName(program, step.exerciseId) : step.exerciseId;
   const exercise = resolveExercise(program, step.exerciseId);
+  const images = exercise?.images ?? [];
   const [detailOpen, setDetailOpen] = useState(false);
+
+  // Alternate the two poses every 2s during the set (DESIGN.md), cross-fading.
+  const [pose, setPose] = useState(0);
+  useEffect(() => {
+    setPose(0);
+    if (images.length < 2 || paused) return;
+    const id = window.setInterval(() => setPose((p) => (p + 1) % images.length), 2000);
+    return () => window.clearInterval(id);
+  }, [images.length, step.key, paused]);
 
   const caption = !step.logged
     ? t('caption.warmup')
@@ -81,23 +96,26 @@ export function SetView({ step, now }: SetViewProps) {
         ? t('kicker.superset', { letter, n: step.setIndex + 1, total: step.setCount })
         : t('kicker.set', { n: step.setIndex + 1, total: step.setCount });
 
+  // Only record a weight when one was planned, entered, or it is an assist.
+  const weightField = plannedWeight || weight > 0 ? { weightKg: weight } : {};
+
   const logWithEffort = (effort: Effort) => {
     if (isRestPause) {
       logCurrentSet({
-        ...(hasWeight ? { weightKg: weight } : {}),
+        ...weightField,
         chunks: reps,
         reps: target.type === 'restPause' ? target.totalReps : undefined,
         seconds: setTimer ? Math.floor(elapsedMs(setTimer, Date.now()) / 1000) : undefined,
         effort,
       });
     } else {
-      logCurrentSet({ ...(hasWeight ? { weightKg: weight } : {}), reps, effort });
+      logCurrentSet({ ...weightField, reps, effort });
     }
   };
 
   const logDone = () => {
     logCurrentSet({
-      ...(hasWeight ? { weightKg: weight } : {}),
+      ...weightField,
       ...(isDuration ? { seconds: target.type === 'duration' ? target.seconds : 0 } : {}),
     });
   };
@@ -108,24 +126,40 @@ export function SetView({ step, now }: SetViewProps) {
     max: t('effort.max'),
   };
 
+  const hasPhoto = images.length > 0;
+
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex-1 overflow-y-auto px-gutter pt-6">
-        <div className="flex items-start gap-3">
-          <div className="min-w-0 flex-1">
-            <p className="font-ui text-label-sm uppercase tracking-[0.14em] text-accent">{label}</p>
-            <button
-              type="button"
-              onClick={() => setDetailOpen(true)}
-              className="mt-1 text-left font-display text-display-md uppercase leading-none text-ink"
-            >
-              {name}
-            </button>
-          </div>
-          <button type="button" onClick={() => setDetailOpen(true)} className="shrink-0">
-            <ExerciseImage exercise={exercise} alternate className="h-20 w-20" />
-          </button>
+    <div className="relative flex flex-1 flex-col overflow-hidden">
+      {/* Full-screen exercise photo behind the content (DESIGN.md set screen). */}
+      {hasPhoto && (
+        <div className="absolute inset-0" aria-hidden>
+          {images.slice(0, 2).map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover transition-opacity duration-phase"
+              style={{
+                objectPosition: 'center 30%',
+                filter: PHOTO_FILTER,
+                opacity: i === pose ? 1 : 0,
+              }}
+            />
+          ))}
+          <div className="absolute inset-0" style={{ background: SCRIM }} />
         </div>
+      )}
+
+      <div className="relative flex min-h-0 flex-1 flex-col overflow-y-auto px-gutter pb-4 pt-6">
+        <p className="font-ui text-label-sm uppercase tracking-[0.14em] text-accent">{label}</p>
+        <button
+          type="button"
+          onClick={() => setDetailOpen(true)}
+          className="mt-1 text-left font-display text-display-md uppercase leading-none text-ink"
+          style={hasPhoto ? { textShadow: 'var(--shadow-text-photo)' } : undefined}
+        >
+          {name}
+        </button>
         <ExerciseDetailSheet
           exerciseId={detailOpen ? step.exerciseId : null}
           onClose={() => setDetailOpen(false)}
@@ -139,7 +173,7 @@ export function SetView({ step, now }: SetViewProps) {
               assisted={step.assisted}
             />
             {step.previous && (
-              <span className="font-ui text-meta text-ink-muted">
+              <span className="font-ui text-meta text-ink-secondary">
                 {step.previous.weightKg !== undefined
                   ? t('prevWeighted', {
                       weight: step.previous.weightKg,
@@ -159,6 +193,7 @@ export function SetView({ step, now }: SetViewProps) {
               progress={progress}
               caption={caption}
               pulse={!paused && !stopwatch && displaySeconds <= 5 && displaySeconds > 0}
+              onPhoto={hasPhoto}
             />
           ) : (
             <p className="text-center font-ui text-label-sm uppercase tracking-[0.14em] text-ink-muted">
@@ -178,9 +213,11 @@ export function SetView({ step, now }: SetViewProps) {
             </button>
           </div>
         )}
+
+        <UndoBanner />
       </div>
 
-      <div className="border-t border-line bg-app px-gutter pb-safe pt-3">
+      <div className="relative border-t border-line bg-app px-gutter pb-safe pt-3">
         {!step.logged || isDuration ? (
           <Button variant="primary" onClick={logDone}>
             {t('action.done')}
@@ -188,19 +225,17 @@ export function SetView({ step, now }: SetViewProps) {
         ) : (
           <>
             <div className="mb-3 flex gap-3">
-              {hasWeight && (
-                <Stepper
-                  label={step.assisted ? t('field.assist') : t('field.weight')}
-                  value={weight}
-                  onChange={setWeight}
-                  step={2.5}
-                  min={0}
-                  unit="kg"
-                  allowDecimalEntry
-                  changed={weight !== prefill}
-                  className="flex-1"
-                />
-              )}
+              <Stepper
+                label={step.assisted ? t('field.assist') : t('field.weight')}
+                value={weight}
+                onChange={setWeight}
+                step={2.5}
+                min={0}
+                unit="kg"
+                allowDecimalEntry
+                changed={weight !== prefill}
+                className="flex-1"
+              />
               <Stepper
                 label={isRestPause ? t('field.chunks') : t('field.reps')}
                 value={reps}

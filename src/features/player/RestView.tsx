@@ -4,6 +4,7 @@ import { Button, GigaTimer } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
+import { UndoBanner } from './UndoBanner';
 import { restCountdownBeep, restEndCue } from './cues';
 
 type RestViewProps = { now: number };
@@ -61,6 +62,7 @@ export function RestView({ now }: RestViewProps) {
             {t('restNext', { name: nextName })}
           </p>
         )}
+        <UndoBanner />
       </div>
       <div className="border-t border-line bg-app px-gutter pb-safe pt-3">
         <div className="flex gap-2">
