@@ -34,14 +34,14 @@ Update at every commit.
 - [x] HOME-3 (M) Today card / pending / rest / done states
 - [x] HOME-4 (M) Past-day sheet with that day's activity
 - [x] HOME-5 (M) Quick access row (Extra sessions, Breathe, History)
-- [ ] HOME-6 (M) Resume-workout banner when a workout is in progress
+- [x] HOME-6 (M) Resume-workout banner when a workout is in progress
 
 ## 7.3 Session data model
 
 - [ ] SES-1 (M) Sections: standard / superset / circuit
 - [ ] SES-2 (M) Block fields (sets, rest, prep, timer override, alternatives, flags)
 - [ ] SES-3 (M) Set target types: reps / repRange / amrap / duration / restPause
-- [ ] SES-3b (M) logged:false unlogged sets
+- [x] SES-3b (M) logged:false unlogged sets
 - [ ] SES-3c (B) maxDuration set type
 - [ ] SES-4 (S) Unilateral blocks (two halves per set)
 - [x] SES-5 (M) Estimated session duration
@@ -49,16 +49,16 @@ Update at every commit.
 
 ## 7.4 Workout flow
 
-- [ ] WRK-1 (M) Pre-session overview
-- [ ] WRK-2 (M) Start creates in-progress record, wake lock, audio unlock, enters player
-- [ ] WRK-3 (M) Player top area (segmented progress, elapsed, percent, close, list)
-- [ ] WRK-4 (M) Current step area (labels, target, image, previous performance)
-- [ ] WRK-5 (M) Set timer (giant numerals + linear bar; duration rule)
-- [ ] WRK-6 (M) Inputs: weight, reps, effort (duration/restPause variants)
-- [ ] WRK-7 (M) Confirm logs set, moves to rest, bonus rest
-- [ ] WRK-8 (M) Timer-zero prompt, pause, restart set
+- [x] WRK-1 (M) Pre-session overview
+- [x] WRK-2 (M) Start creates in-progress record, wake lock, audio unlock, enters player
+- [x] WRK-3 (M) Player top area (segmented progress, elapsed, percent, close, list)
+- [x] WRK-4 (M) Current step area (labels, target, image, previous performance)
+- [x] WRK-5 (M) Set timer (giant numerals + linear bar; duration rule)
+- [x] WRK-6 (M) Inputs: weight, reps, effort (duration/restPause variants)
+- [x] WRK-7 (M) Confirm logs set, moves to rest, bonus rest
+- [x] WRK-8 (M) Timer-zero prompt, pause, restart set
 - [ ] WRK-9 (M) Manual next/back navigation
-- [ ] WRK-10 (M) Rest screen (countdown, next preview, +15s, skip)
+- [x] WRK-10 (M) Rest screen (countdown, next preview, +15s, skip)
 - [ ] WRK-11 (M) Prep time countdown
 - [ ] WRK-12 (M) Superset and circuit execution
 - [ ] WRK-13 (S) Skip section
@@ -66,10 +66,10 @@ Update at every commit.
 - [ ] WRK-15 (M) Swap picker
 - [ ] WRK-16 (M) Add exercise
 - [ ] WRK-17 (M) Per-block notes
-- [ ] WRK-18 (M) Global pause
-- [ ] WRK-19 (M) Finish / discard
-- [ ] WRK-20 (M) Persistence + resume at exact step; wake lock re-request
-- [ ] WRK-21 (M) End-of-session summary
+- [x] WRK-18 (M) Global pause
+- [x] WRK-19 (M) Finish / discard
+- [x] WRK-20 (M) Persistence + resume at exact step; wake lock re-request
+- [x] WRK-21 (M) End-of-session summary
 - [ ] WRK-22 (M) Keep-changes flow into overlay
 - [ ] WRK-23 (S) Sounds and haptics
 - [ ] WRK-24 (S) Undo last set
@@ -111,7 +111,7 @@ Update at every commit.
 
 ## 7.8 History
 
-- [ ] HIST-1 (M) Workout list
+- [x] HIST-1 (M) Workout list
 - [ ] HIST-2 (M) Workout detail
 - [ ] HIST-3 (M) Exercise history + chart
 - [ ] HIST-4 (M) Breathing history (segmented control)
