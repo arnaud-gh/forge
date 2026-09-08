@@ -30,6 +30,7 @@ interface PlayerStore {
   context: WorkoutContext | null;
   steps: SetStep[];
   logs: Record<string, LoggedSet>;
+  notes: Record<string, string>;
   currentIndex: number;
   phase: PlayerPhase;
   paused: boolean;
@@ -63,6 +64,12 @@ interface PlayerStore {
 
   goPrev: () => void;
   goNext: () => void;
+  goToStepIndex: (index: number) => void;
+
+  // Session-list actions (WRK-13/15/17).
+  skipSection: (sectionId: string) => void;
+  swapBlock: (blockId: string, exerciseId: string) => void;
+  setBlockNote: (blockId: string, note: string) => void;
 
   pauseWorkout: () => void;
   resumeWorkout: () => void;
@@ -93,6 +100,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       context: s.context,
       steps: s.steps,
       logs: s.logs,
+      notes: s.notes,
       currentIndex: s.currentIndex,
       phase: s.phase,
       paused: s.paused,
@@ -138,6 +146,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     context: null,
     steps: [],
     logs: {},
+    notes: {},
     currentIndex: 0,
     phase: 'set',
     paused: false,
@@ -162,6 +171,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         context,
         steps,
         logs: {},
+        notes: {},
         currentIndex: 0,
         phase: startsWithPrep ? 'prep' : 'set',
         paused: false,
@@ -182,6 +192,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         context: saved.context,
         steps: saved.steps,
         logs: saved.logs,
+        notes: saved.notes ?? {},
         currentIndex: saved.currentIndex,
         phase: saved.phase,
         paused: saved.paused,
@@ -263,6 +274,42 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       if (currentIndex > 0) goToStep(currentIndex - 1, Date.now());
     },
     goNext: () => goToStep(get().currentIndex + 1, Date.now()),
+    goToStepIndex: (index) => {
+      if (index >= 0 && index < get().steps.length) goToStep(index, Date.now());
+    },
+
+    skipSection: (sectionId) => {
+      const { steps, currentIndex, logs } = get();
+      const nextLogs = { ...logs };
+      for (let i = 0; i < steps.length; i += 1) {
+        const step = steps[i]!;
+        if (step.sectionId === sectionId && !nextLogs[step.key]) {
+          nextLogs[step.key] = { status: 'skipped', loggedAt: Date.now() };
+        }
+      }
+      // Jump to the first step after the section (or summary).
+      let next = currentIndex;
+      while (next < steps.length && steps[next]!.sectionId === sectionId) next += 1;
+      set({ logs: nextLogs });
+      goToStep(next, Date.now());
+    },
+
+    swapBlock: (blockId, exerciseId) => {
+      // Replace the exercise for every step of the block; clear its weight pre-fill
+      // (WRK-15: planned weight cleared on swap unless the new exercise has history).
+      const steps = get().steps.map((s) =>
+        s.blockId === blockId
+          ? { ...s, exerciseId, prefillWeightKg: null, previous: undefined }
+          : s,
+      );
+      set({ steps });
+      persist();
+    },
+
+    setBlockNote: (blockId, note) => {
+      set({ notes: { ...get().notes, [blockId]: note } });
+      persist();
+    },
 
     pauseWorkout: () => {
       const now = Date.now();
@@ -306,6 +353,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         context: null,
         steps: [],
         logs: {},
+        notes: {},
         currentIndex: 0,
         phase: 'set',
         paused: false,

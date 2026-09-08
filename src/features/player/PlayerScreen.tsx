@@ -10,6 +10,7 @@ import { PlayerTopBar } from './PlayerTopBar';
 import { SetView } from './SetView';
 import { RestView } from './RestView';
 import { PrepView } from './PrepView';
+import { SessionListSheet } from './SessionListSheet';
 import { SummaryView } from './SummaryView';
 import { assembleWorkout, plannedSetCount } from './sequencer';
 import { persistWorkout } from './saveWorkout';
@@ -29,6 +30,7 @@ export function PlayerScreen() {
   const step = usePlayerStore((s) => s.currentStep());
   const steps = usePlayerStore((s) => s.steps);
   const logs = usePlayerStore((s) => s.logs);
+  const notes = usePlayerStore((s) => s.notes);
   const context = usePlayerStore((s) => s.context);
   const startedAt = usePlayerStore((s) => s.startedAt);
   const finish = usePlayerStore((s) => s.finish);
@@ -38,6 +40,7 @@ export function PlayerScreen() {
   const markSessionDone = useProgramStore((s) => s.markSessionDone);
 
   const [confirmClose, setConfirmClose] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const now = useNow(active && !paused && phase !== 'summary');
@@ -61,7 +64,7 @@ export function PlayerScreen() {
     if (!context) return;
     setSaving(true);
     try {
-      const workout = assembleWorkout(context, steps, logs, startedAt, Date.now());
+      const workout = assembleWorkout(context, steps, logs, notes, startedAt, Date.now());
       if (note.trim()) workout.note = note.trim();
       await persistWorkout(workout);
       if (!context.isStandalone && context.weekIndex !== null) {
@@ -80,7 +83,12 @@ export function PlayerScreen() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col bg-app pt-safe">
-      <PlayerTopBar now={now} onClose={() => setConfirmClose(true)} />
+      <PlayerTopBar
+        now={now}
+        onClose={() => setConfirmClose(true)}
+        onOpenList={() => setListOpen(true)}
+      />
+      <SessionListSheet open={listOpen} onClose={() => setListOpen(false)} />
 
       {phase === 'prep' && step ? <PrepView step={step} now={now} /> : null}
       {phase === 'set' && step ? <SetView step={step} now={now} /> : null}

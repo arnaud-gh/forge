@@ -151,7 +151,7 @@ describe('assembleWorkout (WRK-21)', () => {
       weekIndex: 1,
       isStandalone: false,
     };
-    const workout = assembleWorkout(context, steps, logs, 1000, 61000);
+    const workout = assembleWorkout(context, steps, logs, {}, 1000, 61000);
     expect(workout.totals.setsPlanned).toBe(4);
     expect(workout.totals.setsDone).toBe(4);
     expect(workout.totals.volumeKg).toBe(1200); // 60*10 * 2 bench sets

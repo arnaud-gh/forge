@@ -13,6 +13,7 @@ export interface SetStep {
   exerciseId: string;
   assisted: boolean;
   unilateral: boolean;
+  alternatives: string[]; // program-defined swap options (WRK-15)
   round: number; // 1-based (circuits), else 1
   totalRounds: number; // circuit rounds, else 1
   setIndex: number; // 0-based within the block
@@ -67,6 +68,7 @@ export interface SavedWorkoutBlock {
   exerciseId: string;
   sectionName: string;
   sets: SavedWorkoutSet[];
+  notes?: string;
 }
 export interface SavedWorkout {
   programId: string | null;
@@ -97,6 +99,8 @@ export interface InProgressWorkout {
   context: WorkoutContext;
   steps: SetStep[];
   logs: Record<string, LoggedSet>;
+  /** Per-block free-text notes (WRK-17). */
+  notes: Record<string, string>;
   currentIndex: number;
   phase: PlayerPhase;
   paused: boolean;

@@ -1,5 +1,16 @@
 # Decisions
 
+## 2026-09-08 — M3 session-list scope: library-dependent actions move to M5
+
+WRK-15 (swap "Similar" suggestions) and WRK-16 (add exercise) both pick from the
+exercise library, but the library JSON is produced by the M5 build step (LIB-2).
+Rather than block M3, the session list ships the actions that need no library:
+per-set status, go to set (WRK-14), skip section (WRK-13), notes (WRK-17), and
+swap to the block's program-defined alternatives (WRK-15 first group). The
+library-backed swap suggestions, add-exercise, edit-sets and the keep-changes
+overlay (WRK-22 / PRG-7) are deferred to M5 when the library lands. Acceptance
+goals 1 and 2 do not depend on these. Affects WRK-14/15/16/22.
+
 ## 2026-09-08 — Google sign-in uses popup with redirect fallback
 
 PRD section 4 and the M0 plan specified `signInWithRedirect` (popup deemed

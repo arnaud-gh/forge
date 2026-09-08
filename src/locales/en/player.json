@@ -57,6 +57,23 @@
   "timesUp": "Time's up, log your set",
   "restNext": "Next: {{name}}",
   "paused": "Paused",
+  "list": {
+    "title": "Session",
+    "skipSection": "Skip section",
+    "notes": "Notes",
+    "swap": "Swap",
+    "goToSet": "Go to set",
+    "notePlaceholder": "Note for this exercise",
+    "saveNote": "Save note",
+    "swapTitle": "Swap exercise",
+    "noAlternatives": "No alternatives in the program. Library swaps arrive in M5.",
+    "addExercise": "Add exercise (M5)"
+  },
+  "sectionType": {
+    "standard": "Standard",
+    "superset": "Superset",
+    "circuit": "Circuit"
+  },
   "confirm": {
     "finishTitle": "Finish session?",
     "finishBody": "Finish with {{n}} sets not done?",

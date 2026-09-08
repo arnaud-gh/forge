@@ -1,5 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { IconButton, SegmentedProgressBar, CloseIcon, PauseIcon, formatClock } from '@/components';
+import {
+  IconButton,
+  SegmentedProgressBar,
+  CloseIcon,
+  PauseIcon,
+  ListIcon,
+  formatClock,
+} from '@/components';
 import { usePlayerStore } from './playerStore';
 import { buildSegments, percentComplete } from './progress';
 import { elapsedMs } from '@/lib/timers';
@@ -7,9 +14,10 @@ import { elapsedMs } from '@/lib/timers';
 type PlayerTopBarProps = {
   now: number;
   onClose: () => void;
+  onOpenList: () => void;
 };
 
-export function PlayerTopBar({ now, onClose }: PlayerTopBarProps) {
+export function PlayerTopBar({ now, onClose, onOpenList }: PlayerTopBarProps) {
   const { t } = useTranslation(['player', 'common']);
   const steps = usePlayerStore((s) => s.steps);
   const currentIndex = usePlayerStore((s) => s.currentIndex);
@@ -31,9 +39,14 @@ export function PlayerTopBar({ now, onClose }: PlayerTopBarProps) {
           <span>{formatClock(elapsed)}</span>
           <span>{percent}%</span>
         </div>
-        <IconButton label={t('player:action.pause')} onClick={pauseWorkout} className="border-0">
-          <PauseIcon />
-        </IconButton>
+        <div className="flex items-center gap-1">
+          <IconButton label={t('list.title')} onClick={onOpenList} className="border-0">
+            <ListIcon />
+          </IconButton>
+          <IconButton label={t('player:action.pause')} onClick={pauseWorkout} className="border-0">
+            <PauseIcon />
+          </IconButton>
+        </div>
       </div>
       <SegmentedProgressBar segments={segments} />
     </div>

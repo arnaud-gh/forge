@@ -41,6 +41,7 @@ function makeStep(a: StepArgs): SetStep {
     exerciseId: a.block.exerciseId,
     assisted: a.block.assisted ?? false,
     unilateral: a.block.unilateral ?? false,
+    alternatives: a.block.alternatives ?? [],
     round: a.round,
     totalRounds: a.totalRounds,
     setIndex: a.setIndex,
@@ -189,6 +190,7 @@ export function assembleWorkout(
   context: WorkoutContext,
   steps: SetStep[],
   logs: Record<string, LoggedSet>,
+  notes: Record<string, string>,
   startedAt: number,
   endedAt: number,
 ): SavedWorkout {
@@ -208,6 +210,7 @@ export function assembleWorkout(
         exerciseId: step.exerciseId,
         sectionName: step.sectionName,
         sets: [],
+        ...(notes[step.blockId] ? { notes: notes[step.blockId] } : {}),
       };
       byBlock.set(step.blockId, block);
       blocks.push(block);

@@ -28,12 +28,13 @@ export function SummaryView({ onSave, saving }: SummaryViewProps) {
   const context = usePlayerStore((s) => s.context);
   const steps = usePlayerStore((s) => s.steps);
   const logs = usePlayerStore((s) => s.logs);
+  const notes = usePlayerStore((s) => s.notes);
   const startedAt = usePlayerStore((s) => s.startedAt);
   const [note, setNote] = useState('');
 
   const workout = useMemo(
-    () => (context ? assembleWorkout(context, steps, logs, startedAt, Date.now()) : null),
-    [context, steps, logs, startedAt],
+    () => (context ? assembleWorkout(context, steps, logs, notes, startedAt, Date.now()) : null),
+    [context, steps, logs, notes, startedAt],
   );
   if (!workout) return null;
 
