@@ -19,5 +19,6 @@ export {
 } from './schedule';
 export type { DayCell, TodayInfo, DayInfo } from './schedule';
 export type { DayState } from '@/components';
-export { estimateSessionSeconds, countExercises } from './duration';
+export { estimateSessionSeconds, countExercises, setTimerSeconds } from './duration';
+export type { TimerDefaults } from './duration';
 export type * from './types';
