@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { AuthGate } from '@/features/auth';
 import { HomeScreen } from '@/features/home/HomeScreen';
+import { ExtraSessionsScreen } from '@/features/home/ExtraSessionsScreen';
 import { BreatheScreen } from '@/features/breathing/BreatheScreen';
 import { BreathingSessionScreen } from '@/features/breathing/BreathingSessionScreen';
 import { HistoryScreen } from '@/features/history/HistoryScreen';
@@ -33,6 +34,7 @@ export function App() {
         >
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
+            <Route path="/extra" element={<ExtraSessionsScreen />} />
             <Route path="/breathe" element={<BreatheScreen />} />
             <Route path="/history" element={<HistoryScreen />} />
             <Route path="/settings" element={<SettingsScreen />} />

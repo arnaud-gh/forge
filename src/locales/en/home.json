@@ -30,6 +30,10 @@
     "breathe": "Breathe",
     "history": "History"
   },
+  "extra": {
+    "title": "Extra sessions",
+    "empty": "This program has no extra sessions."
+  },
   "week": {
     "prev": "Previous week",
     "next": "Next week",
