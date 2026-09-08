@@ -18,7 +18,7 @@ interface AuthState {
 
 let initialized = false;
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   status: 'loading',
   error: null,
@@ -43,6 +43,15 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ user: null, status: 'signedOut' });
       }
     });
+
+    // Safety net: never hang on the splash. If auth has not reported within a few
+    // seconds (e.g. a wedged redirect resolution), fall back to the current state.
+    window.setTimeout(() => {
+      if (get().status === 'loading') {
+        const current = auth.currentUser;
+        set({ user: current, status: current ? 'signedIn' : 'signedOut' });
+      }
+    }, 5000);
   },
 
   signIn: async () => {

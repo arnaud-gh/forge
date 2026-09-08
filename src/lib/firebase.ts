@@ -3,8 +3,10 @@ import {
   getAuth,
   GoogleAuthProvider,
   getRedirectResult,
+  signInWithPopup,
   signInWithRedirect,
   signOut,
+  type AuthError,
   type User,
 } from 'firebase/auth';
 import {
@@ -47,18 +49,38 @@ export const db = initializeFirestore(app, {
 
 const googleProvider = new GoogleAuthProvider();
 
-/**
- * Start Google sign-in via full-page redirect. Popup sign-in is unreliable in
- * iOS standalone PWAs, so the app uses the redirect flow (PRD section 4).
- * The result is picked up by completeRedirectSignIn() on the next load.
- */
-export function signInWithGoogle(): Promise<void> {
-  return signInWithRedirect(auth, googleProvider);
+// Popup errors that mean "this environment can't do a popup" — fall back to a
+// full-page redirect. A user-cancelled popup is not in this list (we surface it).
+const POPUP_FALLBACK_CODES = new Set([
+  'auth/popup-blocked',
+  'auth/operation-not-supported-in-this-environment',
+  'auth/cancelled-popup-request',
+]);
+
+function isPopupFallbackError(err: unknown): boolean {
+  return err instanceof Error && POPUP_FALLBACK_CODES.has((err as AuthError).code);
 }
 
 /**
- * Resolve a pending redirect sign-in after the app reloads. Returns the signed-in
- * user, or null when there was no redirect in progress.
+ * Start Google sign-in. Uses a popup (a first-party window, reliable in Safari
+ * where cross-domain redirect storage is blocked) and falls back to a full-page
+ * redirect where popups are unavailable (some standalone PWAs). PRD section 4.
+ */
+export async function signInWithGoogle(): Promise<void> {
+  try {
+    await signInWithPopup(auth, googleProvider);
+  } catch (err) {
+    if (isPopupFallbackError(err)) {
+      await signInWithRedirect(auth, googleProvider);
+      return;
+    }
+    throw err;
+  }
+}
+
+/**
+ * Resolve a pending redirect sign-in after the app reloads (the fallback path).
+ * Returns the signed-in user, or null when there was no redirect in progress.
  */
 export async function completeRedirectSignIn(): Promise<User | null> {
   const result = await getRedirectResult(auth);
