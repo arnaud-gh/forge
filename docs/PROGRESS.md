@@ -38,14 +38,14 @@ Update at every commit.
 
 ## 7.3 Session data model
 
-- [ ] SES-1 (M) Sections: standard / superset / circuit
-- [ ] SES-2 (M) Block fields (sets, rest, prep, timer override, alternatives, flags)
-- [ ] SES-3 (M) Set target types: reps / repRange / amrap / duration / restPause
+- [x] SES-1 (M) Sections: standard / superset / circuit
+- [x] SES-2 (M) Block fields (sets, rest, prep, timer override, alternatives, flags)
+- [x] SES-3 (M) Set target types: reps / repRange / amrap / duration / restPause
 - [x] SES-3b (M) logged:false unlogged sets
 - [ ] SES-3c (B) maxDuration set type
 - [ ] SES-4 (S) Unilateral blocks (two halves per set)
 - [x] SES-5 (M) Estimated session duration
-- [ ] SES-6 (M) Assisted blocks (counterweight, inverted progression)
+- [x] SES-6 (M) Assisted blocks (counterweight, inverted progression)
 
 ## 7.4 Workout flow
 
@@ -59,31 +59,31 @@ Update at every commit.
 - [x] WRK-8 (M) Timer-zero prompt, pause, restart set
 - [ ] WRK-9 (M) Manual next/back navigation
 - [x] WRK-10 (M) Rest screen (countdown, next preview, +15s, skip)
-- [ ] WRK-11 (M) Prep time countdown
-- [ ] WRK-12 (M) Superset and circuit execution
-- [ ] WRK-13 (S) Skip section
-- [ ] WRK-14 (M) Session list sheet + per-block actions
+- [x] WRK-11 (M) Prep time countdown
+- [x] WRK-12 (M) Superset and circuit execution
+- [x] WRK-13 (S) Skip section
+- [x] WRK-14 (M) Session list sheet + go-to-set/notes/swap (add-exercise + edit-sets: M5)
 - [ ] WRK-15 (M) Swap picker
 - [ ] WRK-16 (M) Add exercise
-- [ ] WRK-17 (M) Per-block notes
+- [x] WRK-17 (M) Per-block notes
 - [x] WRK-18 (M) Global pause
 - [x] WRK-19 (M) Finish / discard
 - [x] WRK-20 (M) Persistence + resume at exact step; wake lock re-request
 - [x] WRK-21 (M) End-of-session summary
 - [ ] WRK-22 (M) Keep-changes flow into overlay
-- [ ] WRK-23 (S) Sounds and haptics
-- [ ] WRK-24 (S) Undo last set
+- [x] WRK-23 (S) Sounds and haptics
+- [x] WRK-24 (S) Undo last set
 
 ## 7.5 Progression
 
-- [ ] PROG-1 (M) Baseline weight pre-fill
-- [ ] PROG-2 (M) Increase recommendation
-- [ ] PROG-3 (M) Hold recommendation
-- [ ] PROG-4 (M) Below-range recommendation
-- [ ] PROG-5 (M) Recommendation chip; user value overrides
-- [ ] PROG-6 (M) amrap/duration/restPause/bodyweight show previous best
-- [ ] PROG-7 (M) First occurrence: no chip
-- [ ] PROG-8 (M) Assisted blocks: inverted wording/direction
+- [x] PROG-1 (M) Baseline weight pre-fill
+- [x] PROG-2 (M) Increase recommendation
+- [x] PROG-3 (M) Hold recommendation
+- [x] PROG-4 (M) Below-range recommendation
+- [x] PROG-5 (M) Recommendation chip; user value overrides
+- [x] PROG-6 (M) amrap/duration/restPause/bodyweight show previous best
+- [x] PROG-7 (M) First occurrence: no chip
+- [x] PROG-8 (M) Assisted blocks: inverted wording/direction
 
 ## 7.6 Exercise library
 
