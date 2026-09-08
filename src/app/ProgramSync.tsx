@@ -9,13 +9,13 @@ import { useProgramStore } from '@/features/program';
  */
 export function ProgramSync() {
   const uid = useAuthStore((s) => s.user?.uid ?? null);
-  const loadForUser = useProgramStore((s) => s.loadForUser);
+  const load = useProgramStore((s) => s.load);
   const reset = useProgramStore((s) => s.reset);
 
   useEffect(() => {
-    if (uid) void loadForUser(uid);
+    if (uid) void load();
     else reset();
-  }, [uid, loadForUser, reset]);
+  }, [uid, load, reset]);
 
   return null;
 }

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { importProgram } from './importer';
 import { getSeedProgram } from './seed';
 import { activationStartDate } from './schedule';
@@ -13,12 +13,12 @@ interface ProgramStore {
   program: Program | null;
   progress: ProgramProgress | null;
   error: string | null;
-  /** Load the user's active program from Firestore (offline-cache first). */
-  loadForUser: (uid: string) => Promise<void>;
-  /** Activate the bundled seed program for a user with no active program. */
-  activateSeed: (uid: string) => Promise<void>;
-  /** Change the program start date (PRG-3, Settings). Realigns to that Monday. */
-  setStartDate: (uid: string, isoDate: string) => Promise<void>;
+  /** Load the current user's active program from Firestore (offline-cache first). */
+  load: () => Promise<void>;
+  /** Activate the bundled seed program (for a user with no active program). */
+  activateSeed: () => Promise<void>;
+  /** Change the program start date (PRG-3, Settings). */
+  setStartDate: (isoDate: string) => Promise<void>;
   reset: () => void;
 }
 
@@ -32,7 +32,12 @@ export const useProgramStore = create<ProgramStore>((set, get) => ({
   progress: null,
   error: null,
 
-  loadForUser: async (uid) => {
+  load: async () => {
+    const uid = auth.currentUser?.uid;
+    if (!uid) {
+      set({ status: 'none', program: null, progress: null });
+      return;
+    }
     try {
       const snap = await getDocs(programsCollection(uid));
       const activeDoc = snap.docs.find(
@@ -43,9 +48,12 @@ export const useProgramStore = create<ProgramStore>((set, get) => ({
         return;
       }
       const data = activeDoc.data();
-      const program = importProgram(data.file);
-      const progress = data.state as ProgramProgress;
-      set({ status: 'active', program, progress, error: null });
+      set({
+        status: 'active',
+        program: importProgram(data.file),
+        progress: data.state as ProgramProgress,
+        error: null,
+      });
     } catch (err: unknown) {
       set({
         status: 'error',
@@ -54,7 +62,9 @@ export const useProgramStore = create<ProgramStore>((set, get) => ({
     }
   },
 
-  activateSeed: async (uid) => {
+  activateSeed: async () => {
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
     try {
       const program = getSeedProgram();
       const progress: ProgramProgress = {
@@ -73,9 +83,10 @@ export const useProgramStore = create<ProgramStore>((set, get) => ({
     }
   },
 
-  setStartDate: async (uid, isoDate) => {
+  setStartDate: async (isoDate) => {
+    const uid = auth.currentUser?.uid;
     const { program, progress } = get();
-    if (!program || !progress) return;
+    if (!uid || !program || !progress) return;
     const next: ProgramProgress = { ...progress, startDate: isoDate };
     await updateDoc(doc(programsCollection(uid), program.programId), { state: next });
     set({ progress: next });

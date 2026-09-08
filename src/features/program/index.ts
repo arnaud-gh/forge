@@ -6,7 +6,10 @@ export {
   weekDays,
   weekIndexForDate,
   resolveToday,
+  dayInfoForDate,
+  mondayOf,
   mondayOfWeek,
+  startOfDay,
   activationStartDate,
   toISODate,
   parseISODate,
@@ -14,6 +17,7 @@ export {
   sameDay,
   isProgramCompleted,
 } from './schedule';
-export type { DayCell, TodayInfo } from './schedule';
+export type { DayCell, TodayInfo, DayInfo } from './schedule';
+export type { DayState } from '@/components';
 export { estimateSessionSeconds, countExercises } from './duration';
 export type * from './types';

@@ -111,6 +111,34 @@ export function weekDays(
   });
 }
 
+export interface DayInfo {
+  sessionId: string | null;
+  state: DayState;
+  isToday: boolean;
+  /** False when the date falls outside the program's weeks. */
+  inProgram: boolean;
+}
+
+/** Schedule info for an arbitrary calendar date (month view, HOME-1). */
+export function dayInfoForDate(
+  program: Program,
+  progress: ProgramProgress,
+  date: Date,
+  today: Date,
+): DayInfo {
+  const weekIndex = weekIndexForDate(progress.startDate, date);
+  const isToday = sameDay(date, today);
+  if (weekIndex < 1 || weekIndex > program.weeks) {
+    return { sessionId: null, state: 'rest', isToday, inProgram: false };
+  }
+  const weekday = WEEKDAYS[(date.getDay() + 6) % 7]!;
+  const sessionId = expandSchedule(program).get(weekIndex)?.days[weekday] ?? null;
+  const state: DayState = sessionId
+    ? sessionStateFor(progress, weekIndex, sessionId, today)
+    : 'rest';
+  return { sessionId, state, isToday, inProgram: true };
+}
+
 export interface TodayInfo {
   weekIndex: number;
   /** Session scheduled for today (null if today is a rest day). */
