@@ -74,6 +74,7 @@ interface PlayerStore {
   skipSection: (sectionId: string) => void;
   swapBlock: (blockId: string, exerciseId: string) => void;
   setBlockNote: (blockId: string, note: string) => void;
+  removeBlock: (blockId: string) => void;
   undoLastSet: () => void;
 
   pauseWorkout: () => void;
@@ -331,6 +332,25 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
     setBlockNote: (blockId, note) => {
       set({ notes: { ...get().notes, [blockId]: note } });
       persist();
+    },
+
+    removeBlock: (blockId) => {
+      const { steps, currentIndex, logs } = get();
+      const nextLogs = { ...logs };
+      for (const step of steps) {
+        if (step.blockId === blockId && !nextLogs[step.key]) {
+          nextLogs[step.key] = { status: 'skipped', loggedAt: Date.now() };
+        }
+      }
+      set({ logs: nextLogs });
+      // If the current step is in the removed block, advance past it.
+      if (steps[currentIndex]?.blockId === blockId) {
+        let next = currentIndex;
+        while (next < steps.length && steps[next]!.blockId === blockId) next += 1;
+        goToStep(next, Date.now());
+      } else {
+        persist();
+      }
     },
 
     pauseWorkout: () => {

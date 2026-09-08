@@ -31,7 +31,7 @@ export function Sheet({
       {open && (
         <div className="fixed inset-0 z-sheet flex flex-col justify-end">
           <motion.div
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/85"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -42,8 +42,9 @@ export function Sheet({
           <motion.div
             role="dialog"
             aria-modal="true"
+            style={{ backgroundColor: 'var(--bg-app)' }}
             className={cn(
-              'relative flex max-h-[85vh] flex-col rounded-t-sm border-t border-line bg-app pb-safe',
+              'relative isolate flex max-h-[85vh] flex-col rounded-t-sm border-t border-line pb-safe',
               className,
             )}
             initial={{ y: '100%' }}

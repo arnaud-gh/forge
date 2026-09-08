@@ -109,7 +109,7 @@ export function PlayerScreen() {
       {phase === 'rest' ? <RestView now={now} /> : null}
 
       {paused && (
-        <div className="absolute inset-0 z-scrim flex flex-col items-center justify-center bg-black/60 px-gutter">
+        <div className="absolute inset-0 z-scrim flex flex-col items-center justify-center bg-black/85 px-gutter">
           <p className="font-display text-display-lg uppercase text-ink">{t('paused')}</p>
           <div className="mt-8 w-full max-w-[240px]">
             <Button variant="primary" onClick={resumeWorkout}>
@@ -121,6 +121,7 @@ export function PlayerScreen() {
 
       <Toast
         open={undoOpen}
+        position="top"
         message={t('setLogged')}
         actionLabel={t('undo')}
         onAction={() => {

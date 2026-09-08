@@ -4,6 +4,7 @@ import { Button, Sheet } from '@/components';
 import { cn } from '@/lib/cn';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { usePlayerStore } from './playerStore';
+import { SwipeRow, type SwipeAction } from './SwipeRow';
 import type { LoggedSet, SetStep } from './types';
 
 type Props = { open: boolean; onClose: () => void };
@@ -64,6 +65,7 @@ export function SessionListSheet({ open, onClose }: Props) {
   const skipSection = usePlayerStore((s) => s.skipSection);
   const swapBlock = usePlayerStore((s) => s.swapBlock);
   const setBlockNote = usePlayerStore((s) => s.setBlockNote);
+  const removeBlock = usePlayerStore((s) => s.removeBlock);
 
   const [noteBlock, setNoteBlock] = useState<string | null>(null);
   const [noteText, setNoteText] = useState('');
@@ -76,6 +78,7 @@ export function SessionListSheet({ open, onClose }: Props) {
     <>
       <Sheet open={open} onClose={onClose} title={t('list.title')} closeLabel={t('list.title')}>
         <div className="space-y-6 pb-4">
+          <p className="font-ui text-meta text-ink-faint">{t('list.swipeHint')}</p>
           {sections.map((section) => (
             <section key={section.sectionId}>
               <div className="mb-2 flex items-center justify-between">
@@ -92,67 +95,78 @@ export function SessionListSheet({ open, onClose }: Props) {
               </div>
 
               <ul className="space-y-3">
-                {section.blocks.map((block) => (
-                  <li key={block.blockId} className="rounded-sm border border-line px-3 py-3">
-                    <p className="font-display text-display-xs uppercase text-ink">
-                      {name(block.first.exerciseId)}
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {block.steps.map(({ step, index }) => {
-                        const log = logs[step.key];
-                        const isCurrent = index === currentIndex;
-                        return (
-                          <button
-                            key={step.key}
-                            type="button"
-                            onClick={() => {
-                              goToStepIndex(index);
-                              onClose();
-                            }}
-                            className={cn(
-                              'min-w-9 rounded-xs border px-2 py-1 text-center font-ui text-meta tabular-nums',
-                              isCurrent
-                                ? 'border-accent text-accent'
-                                : log?.status === 'done'
-                                  ? 'border-transparent bg-ink/10 text-ink-secondary'
-                                  : log?.status === 'skipped'
-                                    ? 'border-transparent text-ink-ghost line-through'
-                                    : 'border-line-strong text-ink-muted',
-                            )}
-                          >
-                            {cellText(log) || step.setIndex + 1}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <div className="mt-2 flex gap-4">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setNoteBlock(block.blockId);
-                          setNoteText(notes[block.blockId] ?? '');
-                        }}
-                        className="font-ui text-label-sm uppercase tracking-[0.14em] text-ink-muted"
-                      >
-                        {t('list.notes')}
-                      </button>
-                      {block.first.alternatives.length > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => setSwapStep(block.first)}
-                          className="font-ui text-label-sm uppercase tracking-[0.14em] text-ink-muted"
-                        >
-                          {t('list.swap')}
-                        </button>
-                      )}
-                    </div>
-                    {notes[block.blockId] && (
-                      <p className="mt-2 font-ui text-meta text-ink-faint">
-                        {notes[block.blockId]}
-                      </p>
-                    )}
-                  </li>
-                ))}
+                {section.blocks.map((block) => {
+                  const actions: SwipeAction[] = [
+                    {
+                      key: 'notes',
+                      label: t('list.notes'),
+                      onPress: () => {
+                        setNoteBlock(block.blockId);
+                        setNoteText(notes[block.blockId] ?? '');
+                      },
+                    },
+                    ...(block.first.alternatives.length > 0
+                      ? [
+                          {
+                            key: 'swap',
+                            label: t('list.swap'),
+                            tone: 'accent' as const,
+                            onPress: () => setSwapStep(block.first),
+                          },
+                        ]
+                      : []),
+                    {
+                      key: 'delete',
+                      label: t('list.delete'),
+                      tone: 'danger' as const,
+                      onPress: () => removeBlock(block.blockId),
+                    },
+                  ];
+                  return (
+                    <li key={block.blockId}>
+                      <SwipeRow actions={actions}>
+                        <div className="px-3 py-3">
+                          <p className="font-display text-display-xs uppercase text-ink">
+                            {name(block.first.exerciseId)}
+                          </p>
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {block.steps.map(({ step, index }) => {
+                              const log = logs[step.key];
+                              const isCurrent = index === currentIndex;
+                              return (
+                                <button
+                                  key={step.key}
+                                  type="button"
+                                  onClick={() => {
+                                    goToStepIndex(index);
+                                    onClose();
+                                  }}
+                                  className={cn(
+                                    'min-w-9 rounded-xs border px-2 py-1 text-center font-ui text-meta tabular-nums',
+                                    isCurrent
+                                      ? 'border-accent text-accent'
+                                      : log?.status === 'done'
+                                        ? 'border-transparent bg-ink/10 text-ink-secondary'
+                                        : log?.status === 'skipped'
+                                          ? 'border-transparent text-ink-ghost line-through'
+                                          : 'border-line-strong text-ink-muted',
+                                  )}
+                                >
+                                  {cellText(log) || step.setIndex + 1}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          {notes[block.blockId] && (
+                            <p className="mt-2 font-ui text-meta text-ink-faint">
+                              {notes[block.blockId]}
+                            </p>
+                          )}
+                        </div>
+                      </SwipeRow>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           ))}

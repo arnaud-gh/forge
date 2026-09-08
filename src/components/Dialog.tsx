@@ -31,7 +31,7 @@ export function Dialog({
       {open && (
         <div className="fixed inset-0 z-scrim flex items-center justify-center px-gutter">
           <motion.div
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/85"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
