@@ -57,6 +57,8 @@
   "timesUp": "Time's up, log your set",
   "restNext": "Next: {{name}}",
   "paused": "Paused",
+  "setLogged": "Set logged",
+  "undo": "Undo",
   "list": {
     "title": "Session",
     "skipSection": "Skip section",

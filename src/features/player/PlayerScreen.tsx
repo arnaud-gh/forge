@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { keepWakeLockOnVisibility, releaseWakeLock, requestWakeLock } from '@/lib/wakeLock';
 import { useTranslation } from 'react-i18next';
-import { Button, Dialog } from '@/components';
+import { Button, Dialog, Toast } from '@/components';
+import { completeCue } from './cues';
 import { useProgramStore } from '@/features/program';
 import { usePlayerStore } from './playerStore';
 import { useNow } from './useNow';
@@ -36,14 +37,27 @@ export function PlayerScreen() {
   const finish = usePlayerStore((s) => s.finish);
   const discard = usePlayerStore((s) => s.discard);
   const resumeWorkout = usePlayerStore((s) => s.resumeWorkout);
+  const logSeq = usePlayerStore((s) => s.logSeq);
+  const undoLastSet = usePlayerStore((s) => s.undoLastSet);
 
   const markSessionDone = useProgramStore((s) => s.markSessionDone);
 
   const [confirmClose, setConfirmClose] = useState(false);
   const [listOpen, setListOpen] = useState(false);
+  const [undoOpen, setUndoOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const now = useNow(active && !paused && phase !== 'summary');
+
+  // Undo toast after each logged set (WRK-24).
+  useEffect(() => {
+    if (logSeq > 0) setUndoOpen(true);
+  }, [logSeq]);
+
+  // Completion cue when the summary is reached (WRK-23).
+  useEffect(() => {
+    if (phase === 'summary') completeCue();
+  }, [phase]);
 
   // Keep the screen awake for the duration of the player (WRK-20).
   useEffect(() => {
@@ -104,6 +118,17 @@ export function PlayerScreen() {
           </div>
         </div>
       )}
+
+      <Toast
+        open={undoOpen}
+        message={t('setLogged')}
+        actionLabel={t('undo')}
+        onAction={() => {
+          undoLastSet();
+          setUndoOpen(false);
+        }}
+        onDismiss={() => setUndoOpen(false)}
+      />
 
       <Dialog
         open={confirmClose}

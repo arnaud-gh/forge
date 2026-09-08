@@ -6,6 +6,7 @@ import { elapsedMs, isExpired, remainingMs, remainingSeconds } from '@/lib/timer
 import { usePlayerStore } from './playerStore';
 import { targetReps } from './format';
 import { RecommendationChip } from './RecommendationChip';
+import { setEndCue } from './cues';
 import type { SetStep } from './types';
 
 type SetViewProps = { step: SetStep; now: number };
@@ -47,7 +48,7 @@ export function SetView({ step, now }: SetViewProps) {
   const expired = !stopwatch && setTimer ? isExpired(setTimer, now) : false;
 
   useEffect(() => {
-    if (expired && 'vibrate' in navigator) navigator.vibrate?.(180);
+    if (expired) setEndCue();
   }, [expired]);
 
   const name = program ? exerciseName(program, step.exerciseId) : step.exerciseId;

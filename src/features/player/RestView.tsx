@@ -4,6 +4,7 @@ import { Button, GigaTimer } from '@/components';
 import { exerciseName, useProgramStore } from '@/features/program';
 import { isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
+import { restEndCue } from './cues';
 
 type RestViewProps = { now: number };
 
@@ -31,7 +32,7 @@ export function RestView({ now }: RestViewProps) {
   useEffect(() => {
     if (expired && !paused && !advanced.current) {
       advanced.current = true;
-      if ('vibrate' in navigator) navigator.vibrate?.(180);
+      restEndCue();
       advanceAfterRest();
     }
   }, [expired, paused, advanceAfterRest]);

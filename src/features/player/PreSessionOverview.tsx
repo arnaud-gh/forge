@@ -10,6 +10,7 @@ import {
   useProgramStore,
 } from '@/features/program';
 import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
+import { unlockAudio } from '@/lib/audio';
 import { usePlayerStore, type PlanProgression, type WorkoutContext } from '@/features/player';
 import { computePlanProgression, getLastWorkoutForSession } from './history';
 import { formatBlockTarget } from './format';
@@ -61,6 +62,7 @@ export function PreSessionOverview() {
   const exercises = countExercises(resolved);
 
   const onStart = () => {
+    unlockAudio(); // iOS: unlock the audio context on the user's Start tap (WRK-2)
     const context: WorkoutContext = {
       programId: program.programId,
       sessionId,
