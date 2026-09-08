@@ -1,8 +1,54 @@
 {
   "title": "Breathe",
   "body": "Guided Wim Hof style breathing sessions will live here.",
+  "setup": {
+    "speed": "Speed",
+    "slow": "Slow",
+    "standard": "Standard",
+    "fast": "Fast",
+    "presetInfo": "{{in}} s in · {{out}} s out",
+    "rounds": "Rounds",
+    "breaths": "Breaths",
+    "audioTitle": "Audio and feedback",
+    "visualFeedback": "Visual feedback",
+    "hapticFeedback": "Haptic feedback",
+    "gong": "Gong at transitions",
+    "breathingSounds": "Breathing sounds",
+    "musicNote": "Background music tracks arrive in a later release.",
+    "start": "Start"
+  },
   "session": {
     "title": "Breathing session",
-    "body": "The guided breathing session will run here."
+    "body": "The guided breathing session will run here.",
+    "round": "Round {{r}} / {{total}}",
+    "finish": "Finish",
+    "breathe": "Breathe",
+    "hintRetention": "Tap twice to go into retention",
+    "hintRecovery": "Tap twice to go into recovery breath",
+    "letGo": "Let go and hold",
+    "previous": "Previous round: {{time}}",
+    "recovery": "Take a deep breath in and hold",
+    "retention": "Retention"
+  },
+  "summary": {
+    "title": "Session complete",
+    "average": "Average retention",
+    "round": "Round {{n}}",
+    "note": "Note",
+    "notePlaceholder": "How did it feel?",
+    "save": "Save",
+    "restart": "Restart",
+    "discard": "Discard",
+    "delete": "Delete"
+  },
+  "history": {
+    "title": "Breathing",
+    "empty": "No breathing sessions yet.",
+    "sessions": "Sessions",
+    "rounds": "Rounds",
+    "total": "Total retention",
+    "best": "Best",
+    "meta": "{{rounds}} rounds · avg {{avg}} · best {{best}}",
+    "personalBest": "Personal best"
   }
 }

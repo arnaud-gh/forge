@@ -95,26 +95,26 @@ Update at every commit.
 
 ## 7.7 Breathing
 
-- [ ] BR-1 (M) Setup parameters (speed, rounds, breaths)
-- [ ] BR-2 (M) Speed presets to inhale/exhale durations
-- [ ] BR-3 (M) Persistent audio/feedback toggles
+- [x] BR-1 (M) Setup parameters (speed, rounds, breaths)
+- [x] BR-2 (M) Speed presets to inhale/exhale durations
+- [x] BR-3 (M) Persistent audio/feedback toggles
 - [ ] BR-4 (M) Bundled royalty-free tracks
-- [ ] BR-5 (M) Session header + hint
-- [ ] BR-6 (M) Breathing phase (shape, count, samples, auto to retention)
-- [ ] BR-7 (M) Retention phase (stopwatch, previous round, gong)
-- [ ] BR-8 (M) Recovery phase (15s countdown, gong)
-- [ ] BR-9 (M) Finish early keeps completed rounds
-- [ ] BR-10 (S) Visual feedback off mode
-- [ ] BR-11 (M) Summary (avg, editable rounds, note, restart/save/discard)
-- [ ] BR-12 (M) Saved session record
-- [ ] BR-13 (M) Breathing history (charts, totals, calendar)
+- [x] BR-5 (M) Session header + hint
+- [x] BR-6 (M) Breathing phase (shape, count, samples, auto to retention)
+- [x] BR-7 (M) Retention phase (stopwatch, previous round, gong)
+- [x] BR-8 (M) Recovery phase (15s countdown, gong)
+- [x] BR-9 (M) Finish early keeps completed rounds
+- [x] BR-10 (S) Visual feedback off mode
+- [x] BR-11 (M) Summary (avg, editable rounds, note, restart/save/discard)
+- [x] BR-12 (M) Saved session record
+- [x] BR-13 (M) Breathing history (charts, totals, calendar)
 
 ## 7.8 History
 
 - [x] HIST-1 (M) Workout list
 - [ ] HIST-2 (M) Workout detail
 - [ ] HIST-3 (M) Exercise history + chart
-- [ ] HIST-4 (M) Breathing history (segmented control)
+- [x] HIST-4 (M) Breathing history (segmented control)
 - [ ] HIST-5 (S) Shared month calendar
 
 ## 7.9 Settings

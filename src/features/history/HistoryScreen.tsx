@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import { Card, EmptyState } from '@/components';
+import { cn } from '@/lib/cn';
 import { auth, db } from '@/lib/firebase';
 import type { SavedWorkout } from '@/features/player';
+import { BreathingHistory } from '@/features/breathing/BreathingHistory';
 
 interface WorkoutRow extends SavedWorkout {
   id: string;
 }
 
-// Minimal workout history list (HIST-1). Full detail, filters, exercise history
-// and breathing history arrive in M5.
+type Tab = 'workouts' | 'breathing';
+
+// History (HIST-1/4): segmented control Workouts / Breathing.
 export function HistoryScreen() {
-  const { t } = useTranslation('history');
+  const { t } = useTranslation(['history', 'breathe']);
+  const location = useLocation();
+  const initial = ((location.state as { tab?: Tab } | null)?.tab ?? 'workouts') as Tab;
+  const [tab, setTab] = useState<Tab>(initial);
   const [rows, setRows] = useState<WorkoutRow[] | null>(null);
 
   useEffect(() => {
@@ -35,11 +42,29 @@ export function HistoryScreen() {
 
   return (
     <div className="min-h-full px-gutter py-8">
-      <h1 className="mb-6 font-display text-display-md uppercase text-ink">{t('title')}</h1>
+      <h1 className="mb-4 font-display text-display-md uppercase text-ink">{t('history:title')}</h1>
 
-      {rows === null ? null : rows.length === 0 ? (
+      <div className="mb-6 flex gap-2">
+        {(['workouts', 'breathing'] as Tab[]).map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => setTab(k)}
+            className={cn(
+              'flex-1 rounded-sm border py-2 font-display text-btn-sm uppercase',
+              tab === k ? 'border-accent text-accent' : 'border-line-emphasis text-ink-muted',
+            )}
+          >
+            {k === 'workouts' ? t('history:title') : t('breathe:history.title')}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'breathing' ? (
+        <BreathingHistory />
+      ) : rows === null ? null : rows.length === 0 ? (
         <div className="py-10">
-          <EmptyState title={t('title')} body={t('empty')} />
+          <EmptyState title={t('history:title')} body={t('history:empty')} />
         </div>
       ) : (
         <ul className="space-y-3">
@@ -57,7 +82,7 @@ export function HistoryScreen() {
                   {w.sessionName}
                 </p>
                 <p className="mt-1 font-ui text-meta text-ink-muted">
-                  {t('meta', {
+                  {t('history:meta', {
                     min: Math.round(w.durationSec / 60),
                     sets: w.totals.setsDone,
                     volume: Math.round(w.totals.volumeKg),

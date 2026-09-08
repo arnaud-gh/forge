@@ -51,3 +51,14 @@ export function cueComplete(): void {
 export function cueBeep(): void {
   tone(1000, 60, 0, 0.1);
 }
+
+/** Low, long gong for breathing phase transitions (BR-7/8). */
+export function cueGong(): void {
+  tone(196, 900, 0, 0.18);
+  tone(294, 900, 0, 0.08);
+}
+
+/** Soft tick per breath (BR-6, breathing sounds). */
+export function cueBreath(): void {
+  tone(520, 90, 0, 0.06);
+}

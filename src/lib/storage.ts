@@ -29,3 +29,32 @@ export async function clearInProgressWorkout(): Promise<void> {
     // ignore
   }
 }
+
+// Breathing setup parameters, remembered between sessions (BR-1).
+const BREATHING_SETUP_KEY = 'forge:breathingSetup';
+
+export interface BreathingSetupPrefs {
+  speed: 'slow' | 'standard' | 'fast';
+  rounds: number;
+  breaths: number;
+  visualFeedback: boolean;
+  haptic: boolean;
+  gong: boolean;
+  breathingSounds: boolean;
+}
+
+export async function saveBreathingSetup(prefs: BreathingSetupPrefs): Promise<void> {
+  try {
+    await set(BREATHING_SETUP_KEY, prefs);
+  } catch {
+    // ignore
+  }
+}
+
+export async function loadBreathingSetup(): Promise<BreathingSetupPrefs | undefined> {
+  try {
+    return await get<BreathingSetupPrefs>(BREATHING_SETUP_KEY);
+  } catch {
+    return undefined;
+  }
+}
