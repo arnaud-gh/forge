@@ -6,6 +6,7 @@
   "start": "Start session",
   "kicker": {
     "set": "Set {{n}} of {{total}}",
+    "superset": "{{letter}} · Set {{n}} of {{total}}",
     "round": "Round {{r}} of {{total}} · {{n}} of {{total_sets}}"
   },
   "caption": {

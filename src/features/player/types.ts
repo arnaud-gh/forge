@@ -16,6 +16,9 @@ export interface SetStep {
   totalRounds: number; // circuit rounds, else 1
   setIndex: number; // 0-based within the block
   setCount: number; // sets in the block
+  sectionBlockIndex: number; // 0-based block position in the section (superset letter)
+  sectionBlockCount: number; // blocks in the section
+  prepSeconds: number; // prep before the first set of a block (WRK-11)
   target: ProgramSet;
   restSeconds: number; // rest after this set
   setTimerSeconds: number; // computed countdown length (WRK-5)

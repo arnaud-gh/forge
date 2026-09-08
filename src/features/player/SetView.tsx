@@ -50,15 +50,18 @@ export function SetView({ step, now }: SetViewProps) {
       ? t('caption.amrap')
       : t('caption.setTime');
 
+  const letter = String.fromCharCode(65 + step.sectionBlockIndex);
   const label =
-    step.totalRounds > 1
+    step.sectionType === 'circuit'
       ? t('kicker.round', {
           r: step.round,
           total: step.totalRounds,
-          n: step.setIndex + 1,
-          total_sets: step.setCount,
+          n: step.sectionBlockIndex + 1,
+          total_sets: step.sectionBlockCount,
         })
-      : t('kicker.set', { n: step.setIndex + 1, total: step.setCount });
+      : step.sectionType === 'superset'
+        ? t('kicker.superset', { letter, n: step.setIndex + 1, total: step.setCount })
+        : t('kicker.set', { n: step.setIndex + 1, total: step.setCount });
 
   const logWithEffort = (effort: Effort) => {
     logCurrentSet({

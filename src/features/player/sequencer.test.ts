@@ -80,6 +80,51 @@ describe('buildSteps', () => {
   });
 });
 
+describe('buildSteps superset ordering (WRK-12)', () => {
+  const supersetSession: Session = {
+    id: 's',
+    name: 'S',
+    sections: [
+      {
+        id: 'ss',
+        name: 'Superset',
+        type: 'superset',
+        restBetweenExercisesSeconds: 0,
+        blocks: [
+          {
+            id: 'A',
+            exerciseId: 'A',
+            sets: [
+              { type: 'repRange', min: 8, max: 10, weightKg: 40 },
+              { type: 'repRange', min: 8, max: 10, weightKg: 40 },
+            ],
+            restSeconds: 90,
+          },
+          {
+            id: 'B',
+            exerciseId: 'B',
+            sets: [
+              { type: 'repRange', min: 10, max: 12 },
+              { type: 'repRange', min: 10, max: 12 },
+            ],
+            restSeconds: 90,
+          },
+        ],
+      },
+    ],
+  };
+
+  it('alternates A1, B1, A2, B2', () => {
+    const steps = buildSteps(supersetSession, timers);
+    expect(steps.map((s) => s.blockId)).toEqual(['A', 'B', 'A', 'B']);
+  });
+
+  it('rests 0 between exercises and the pair rest after the last block', () => {
+    const steps = buildSteps(supersetSession, timers);
+    expect(steps.map((s) => s.restSeconds)).toEqual([0, 90, 0, 90]);
+  });
+});
+
 describe('setVolume', () => {
   it('is weight x reps for a completed weighted set', () => {
     expect(setVolume({ weightKg: 60, reps: 9, status: 'done', loggedAt: 0 })).toBe(540);
