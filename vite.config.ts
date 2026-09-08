@@ -83,6 +83,18 @@ export default defineConfig({
     // rmSync races on macOS with the 150+ exercise images (ENOTEMPTY).
     emptyOutDir: false,
     chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        // Long-lived vendor chunks: cached independently of app releases, and
+        // Recharts only loads with the screens that draw charts.
+        manualChunks: {
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          recharts: ['recharts'],
+          motion: ['framer-motion'],
+          react: ['react', 'react-dom', 'react-router-dom', 'react-i18next', 'i18next'],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
