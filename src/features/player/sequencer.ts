@@ -7,7 +7,14 @@ import {
   type ProgramSet,
   type SetType,
 } from '@/features/program';
-import type { LoggedSet, SavedWorkout, SavedWorkoutBlock, SetStep, WorkoutContext } from './types';
+import type {
+  LoggedSet,
+  PlanProgression,
+  SavedWorkout,
+  SavedWorkoutBlock,
+  SetStep,
+  WorkoutContext,
+} from './types';
 
 interface StepArgs {
   section: Section;
@@ -20,9 +27,11 @@ interface StepArgs {
   blockIndex: number;
   prep: boolean;
   timers: TimerDefaults;
+  plan?: PlanProgression;
 }
 
 function makeStep(a: StepArgs): SetStep {
+  const prog = a.plan?.[a.block.id];
   return {
     key: `${a.section.id}:${a.block.id}:${a.round}:${a.setIndex}`,
     sectionId: a.section.id,
@@ -43,6 +52,9 @@ function makeStep(a: StepArgs): SetStep {
     restSeconds: a.restSeconds,
     setTimerSeconds: setTimerSeconds(a.set, a.block, a.timers),
     logged: a.set.logged !== false,
+    prefillWeightKg: prog?.prefillWeights[a.setIndex] ?? a.set.weightKg ?? null,
+    ...(prog ? { recommendation: prog.kind } : {}),
+    ...(prog?.previous[a.setIndex] ? { previous: prog.previous[a.setIndex] } : {}),
   };
 }
 
@@ -52,17 +64,26 @@ function makeStep(a: StepArgs): SetStep {
  * set (A1, B1, A2, B2) with rest-between-exercises then the pair rest; circuit
  * runs all blocks each round with rest between rounds.
  */
-export function buildSteps(session: Session, timers: TimerDefaults): SetStep[] {
+export function buildSteps(
+  session: Session,
+  timers: TimerDefaults,
+  plan?: PlanProgression,
+): SetStep[] {
   const steps: SetStep[] = [];
   for (const section of session.sections) {
-    if (section.type === 'superset') buildSuperset(section, timers, steps);
-    else if (section.type === 'circuit') buildCircuit(section, timers, steps);
-    else buildStandard(section, timers, steps);
+    if (section.type === 'superset') buildSuperset(section, timers, steps, plan);
+    else if (section.type === 'circuit') buildCircuit(section, timers, steps, plan);
+    else buildStandard(section, timers, steps, plan);
   }
   return steps;
 }
 
-function buildStandard(section: Section, timers: TimerDefaults, steps: SetStep[]): void {
+function buildStandard(
+  section: Section,
+  timers: TimerDefaults,
+  steps: SetStep[],
+  plan?: PlanProgression,
+): void {
   section.blocks.forEach((block, blockIndex) => {
     block.sets.forEach((set, setIndex) => {
       steps.push(
@@ -77,13 +98,19 @@ function buildStandard(section: Section, timers: TimerDefaults, steps: SetStep[]
           blockIndex,
           prep: setIndex === 0,
           timers,
+          plan,
         }),
       );
     });
   });
 }
 
-function buildSuperset(section: Section, timers: TimerDefaults, steps: SetStep[]): void {
+function buildSuperset(
+  section: Section,
+  timers: TimerDefaults,
+  steps: SetStep[],
+  plan?: PlanProgression,
+): void {
   const between = section.restBetweenExercisesSeconds ?? 0;
   const maxSets = Math.max(...section.blocks.map((b) => b.sets.length));
   for (let setIndex = 0; setIndex < maxSets; setIndex += 1) {
@@ -104,13 +131,19 @@ function buildSuperset(section: Section, timers: TimerDefaults, steps: SetStep[]
           blockIndex,
           prep: setIndex === 0,
           timers,
+          plan,
         }),
       );
     });
   }
 }
 
-function buildCircuit(section: Section, timers: TimerDefaults, steps: SetStep[]): void {
+function buildCircuit(
+  section: Section,
+  timers: TimerDefaults,
+  steps: SetStep[],
+  plan?: PlanProgression,
+): void {
   const totalRounds = section.rounds ?? 1;
   const betweenRounds = section.restBetweenRoundsSeconds ?? 0;
   for (let round = 1; round <= totalRounds; round += 1) {
@@ -132,6 +165,7 @@ function buildCircuit(section: Section, timers: TimerDefaults, steps: SetStep[])
             blockIndex,
             prep: round === 1 && setIndex === 0,
             timers,
+            plan,
           }),
         );
       });

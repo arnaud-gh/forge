@@ -14,7 +14,14 @@ import {
   saveInProgressWorkout,
 } from '@/lib/storage';
 import { buildSteps } from './sequencer';
-import type { InProgressWorkout, LoggedSet, PlayerPhase, SetStep, WorkoutContext } from './types';
+import type {
+  InProgressWorkout,
+  LoggedSet,
+  PlanProgression,
+  PlayerPhase,
+  SetStep,
+  WorkoutContext,
+} from './types';
 
 const HUGE_MS = Number.MAX_SAFE_INTEGER;
 
@@ -33,7 +40,12 @@ interface PlayerStore {
   prepTimer: TimerState | null;
 
   currentStep: () => SetStep | null;
-  start: (session: Session, context: WorkoutContext, timers: TimerDefaults) => void;
+  start: (
+    session: Session,
+    context: WorkoutContext,
+    timers: TimerDefaults,
+    plan?: PlanProgression,
+  ) => void;
   /** Resume a persisted in-progress workout on app start. Returns true if found. */
   resume: () => Promise<boolean>;
 
@@ -140,9 +152,9 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
       return steps[currentIndex] ?? null;
     },
 
-    start: (session, context, timers) => {
+    start: (session, context, timers, plan) => {
       const now = Date.now();
-      const steps = buildSteps(session, timers);
+      const steps = buildSteps(session, timers, plan);
       const first = steps[0];
       const startsWithPrep = !!first && first.prepSeconds > 0;
       set({

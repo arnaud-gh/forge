@@ -5,6 +5,7 @@ import { exerciseName, useProgramStore } from '@/features/program';
 import { elapsedMs, isExpired, remainingMs, remainingSeconds } from '@/lib/timers';
 import { usePlayerStore } from './playerStore';
 import { targetReps } from './format';
+import { RecommendationChip } from './RecommendationChip';
 import type { SetStep } from './types';
 
 type SetViewProps = { step: SetStep; now: number };
@@ -23,13 +24,14 @@ export function SetView({ step, now }: SetViewProps) {
   const isAmrap = target.type === 'amrap';
   const hasWeight = target.weightKg !== undefined || step.assisted;
 
-  // reps doubles as CHUNKS for rest-pause.
-  const [weight, setWeight] = useState(target.weightKg ?? 0);
+  // reps doubles as CHUNKS for rest-pause. Weight pre-fills from progression (PROG-1).
+  const prefill = step.prefillWeightKg ?? target.weightKg ?? 0;
+  const [weight, setWeight] = useState(prefill);
   const [reps, setReps] = useState(isAmrap ? 0 : isRestPause ? 1 : targetReps(target));
   useEffect(() => {
-    setWeight(target.weightKg ?? 0);
+    setWeight(step.prefillWeightKg ?? target.weightKg ?? 0);
     setReps(target.type === 'amrap' ? 0 : target.type === 'restPause' ? 1 : targetReps(target));
-  }, [step.key, target]);
+  }, [step.key, step.prefillWeightKg, target]);
 
   // Rest-pause runs a stopwatch (count up); everything else is a countdown.
   const stopwatch = isRestPause;
@@ -108,6 +110,26 @@ export function SetView({ step, now }: SetViewProps) {
           {name}
         </h1>
 
+        {(step.recommendation && step.recommendation !== 'none') || step.previous ? (
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <RecommendationChip
+              kind={step.recommendation}
+              target={target}
+              assisted={step.assisted}
+            />
+            {step.previous && (
+              <span className="font-ui text-meta text-ink-muted">
+                {step.previous.weightKg !== undefined
+                  ? t('prevWeighted', {
+                      weight: step.previous.weightKg,
+                      reps: step.previous.reps ?? 0,
+                    })
+                  : t('prevReps', { reps: step.previous.reps ?? 0 })}
+              </span>
+            )}
+          </div>
+        ) : null}
+
         <div className="mt-8">
           {setTimer ? (
             <GigaTimer
@@ -154,7 +176,7 @@ export function SetView({ step, now }: SetViewProps) {
                   min={0}
                   unit="kg"
                   allowDecimalEntry
-                  changed={weight !== (target.weightKg ?? 0)}
+                  changed={weight !== prefill}
                   className="flex-1"
                 />
               )}

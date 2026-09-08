@@ -9,4 +9,7 @@ export type {
   WorkoutContext,
   PlayerPhase,
   InProgressWorkout,
+  PlanProgression,
+  BlockProgression,
 } from './types';
+export { getLastWorkoutForSession, computePlanProgression, blockHistory } from './history';

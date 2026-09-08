@@ -1,5 +1,6 @@
 import type { Effort } from '@/components';
 import type { ProgramSet, SectionType, SetType } from '@/features/program';
+import type { PreviousSet, RecommendationKind } from '@/features/progression';
 
 // One set to perform, in execution order (produced by the sequencer).
 export interface SetStep {
@@ -24,7 +25,19 @@ export interface SetStep {
   setTimerSeconds: number; // computed countdown length (WRK-5)
   /** false for warm-up ramp sets (SES-3b): shown, timed, but not logged. */
   logged: boolean;
+  // Progression annotations (M3-5), computed when the workout starts.
+  prefillWeightKg?: number | null; // PROG-1 baseline for this set index
+  recommendation?: RecommendationKind; // block-level chip (PROG-2/3/4)
+  previous?: PreviousSet; // last time's set at this index (WRK-4)
 }
+
+/** Per-block progression annotations attached to steps at start. */
+export interface BlockProgression {
+  kind: RecommendationKind;
+  prefillWeights: (number | null)[];
+  previous: PreviousSet[];
+}
+export type PlanProgression = Record<string, BlockProgression>;
 
 // A logged set outcome.
 export interface LoggedSet {

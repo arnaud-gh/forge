@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, EmptyState, IconButton, CloseIcon } from '@/components';
@@ -10,12 +10,14 @@ import {
   useProgramStore,
 } from '@/features/program';
 import { DEFAULT_SETTINGS } from '@/features/settings/defaults';
-import { usePlayerStore, type WorkoutContext } from '@/features/player';
+import { usePlayerStore, type PlanProgression, type WorkoutContext } from '@/features/player';
+import { computePlanProgression, getLastWorkoutForSession } from './history';
 import { formatBlockTarget } from './format';
+import { RecommendationChip } from './RecommendationChip';
 import { minutesOf } from '@/features/home/homeData';
 
-// Pre-session overview (WRK-1). Start creates the in-progress workout and enters
-// the full-screen player (WRK-2).
+// Pre-session overview (WRK-1). Loads previous performance to pre-fill weights and
+// show recommendations (PROG-1..8), then starts the workout and enters the player.
 export function PreSessionOverview() {
   const { t } = useTranslation(['player', 'common']);
   const navigate = useNavigate();
@@ -33,6 +35,19 @@ export function PreSessionOverview() {
     () => (program ? resolveSession(program, sessionId, weekIndex) : null),
     [program, sessionId, weekIndex],
   );
+
+  const [plan, setPlan] = useState<PlanProgression>({});
+  useEffect(() => {
+    if (!resolved || isStandalone) return; // standalone sessions carry no progression (assumption 8)
+    let cancelled = false;
+    void (async () => {
+      const last = await getLastWorkoutForSession(sessionId);
+      if (!cancelled) setPlan(computePlanProgression(resolved, last));
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [resolved, sessionId, isStandalone]);
 
   if (!program || !resolved) {
     return (
@@ -53,7 +68,7 @@ export function PreSessionOverview() {
       weekIndex: isStandalone ? null : weekIndex,
       isStandalone,
     };
-    start(resolved, context, DEFAULT_SETTINGS.timers);
+    start(resolved, context, DEFAULT_SETTINGS.timers, plan);
     navigate('/player');
   };
 
@@ -87,16 +102,33 @@ export function PreSessionOverview() {
                 {section.name}
               </h2>
               <ul className="space-y-2">
-                {section.blocks.map((block) => (
-                  <li key={block.id} className="rounded-sm border border-line px-4 py-3">
-                    <p className="font-display text-display-xs uppercase text-ink">
-                      {exerciseName(program, block.exerciseId)}
-                    </p>
-                    <p className="mt-1 font-ui text-meta text-ink-muted">
-                      {formatBlockTarget(block.sets)}
-                    </p>
-                  </li>
-                ))}
+                {section.blocks.map((block) => {
+                  const prog = plan[block.id];
+                  const first = block.sets[0];
+                  const prefill = prog?.prefillWeights[0] ?? first?.weightKg;
+                  return (
+                    <li key={block.id} className="rounded-sm border border-line px-4 py-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="font-display text-display-xs uppercase text-ink">
+                          {exerciseName(program, block.exerciseId)}
+                        </p>
+                        {first && (
+                          <RecommendationChip
+                            kind={prog?.kind}
+                            target={first}
+                            assisted={block.assisted ?? false}
+                          />
+                        )}
+                      </div>
+                      <p className="mt-1 font-ui text-meta text-ink-muted">
+                        {formatBlockTarget(block.sets)}
+                        {prefill !== undefined && prefill !== null && first?.weightKg === undefined
+                          ? ` @ ${prefill} kg`
+                          : ''}
+                      </p>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           ))}

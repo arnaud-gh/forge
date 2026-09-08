@@ -44,6 +44,16 @@
     "skip": "Skip",
     "finish": "Finish"
   },
+  "prog": {
+    "increase": "Increase weight",
+    "increaseAssist": "Decrease assist",
+    "hold": "Same weight, aim for {{max}}",
+    "holdAssist": "Same assist, aim for {{max}}",
+    "below": "Work back into {{min}}-{{max}}",
+    "belowAssist": "Work back into {{min}}-{{max}}"
+  },
+  "prevWeighted": "Last: {{weight}} kg x {{reps}}",
+  "prevReps": "Last: {{reps}} reps",
   "timesUp": "Time's up, log your set",
   "restNext": "Next: {{name}}",
   "paused": "Paused",
