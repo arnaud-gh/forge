@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { keepWakeLockOnVisibility, releaseWakeLock, requestWakeLock } from '@/lib/wakeLock';
 import { useTranslation } from 'react-i18next';
 import { Button, Dialog } from '@/components';
 import { useProgramStore } from '@/features/program';
@@ -39,6 +40,16 @@ export function PlayerScreen() {
   const [saving, setSaving] = useState(false);
 
   const now = useNow(active && !paused && phase !== 'summary');
+
+  // Keep the screen awake for the duration of the player (WRK-20).
+  useEffect(() => {
+    void requestWakeLock();
+    const stop = keepWakeLockOnVisibility();
+    return () => {
+      stop();
+      void releaseWakeLock();
+    };
+  }, []);
 
   if (!active) return <Navigate to="/" replace />;
 

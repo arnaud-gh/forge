@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, EmptyState } from '@/components';
 import { useProgramStore, weekIndexForDate, type DayState } from '@/features/program';
+import { usePlayerStore } from '@/features/player';
 import { WeekStrip } from './WeekStrip';
 import { TodayCard } from './TodayCard';
 import { DaySheet } from './DaySheet';
+import { ResumeBanner } from './ResumeBanner';
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -21,6 +23,7 @@ export function HomeScreen() {
   const progress = useProgramStore((s) => s.progress);
   const activateSeed = useProgramStore((s) => s.activateSeed);
   const load = useProgramStore((s) => s.load);
+  const workoutActive = usePlayerStore((s) => s.active);
 
   const today = useMemo(() => new Date(), []);
   const [selectedWeek, setSelectedWeek] = useState<number | null>(null);
@@ -84,14 +87,18 @@ export function HomeScreen() {
         onSelectDay={(date, sessionId, state) => setDaySel({ date, sessionId, state })}
       />
 
-      <TodayCard
-        program={program}
-        progress={progress}
-        today={today}
-        onStart={(sessionId) =>
-          navigate(`/session/${sessionId}`, { state: { weekIndex: currentWeek } })
-        }
-      />
+      {workoutActive ? (
+        <ResumeBanner />
+      ) : (
+        <TodayCard
+          program={program}
+          progress={progress}
+          today={today}
+          onStart={(sessionId) =>
+            navigate(`/session/${sessionId}`, { state: { weekIndex: currentWeek } })
+          }
+        />
+      )}
 
       <nav className="grid grid-cols-3 gap-2">
         <QuickLink label={t('quick.extra')} onClick={() => navigate('/extra')} />

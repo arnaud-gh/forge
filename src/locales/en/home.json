@@ -16,6 +16,12 @@
     "body": "Nice work. Try an extra session or a breathing round."
   },
   "estimate": "{{min}} min · {{count}} exercises",
+  "resume": {
+    "inProgress": "In progress",
+    "setsDone": "{{done}} of {{total}} sets done",
+    "resume": "Resume",
+    "discard": "Discard"
+  },
   "today": {
     "kicker": "Today",
     "pendingKicker": "Pending this week",

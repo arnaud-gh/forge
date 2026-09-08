@@ -1,4 +1,6 @@
 {
   "title": "History",
-  "body": "Completed workouts and breathing sessions will appear here."
+  "body": "Completed workouts and breathing sessions will appear here.",
+  "empty": "No workouts yet. Finish a session and it shows up here.",
+  "meta": "{{min}} min · {{sets}} sets · {{volume}} kg"
 }
