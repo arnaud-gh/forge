@@ -76,6 +76,12 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    // dist is cleared by the build script (`rm -rf dist`): Vite's own recursive
+    // rmSync races on macOS with the 150+ exercise images (ENOTEMPTY).
+    emptyOutDir: false,
+    chunkSizeWarningLimit: 900,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
