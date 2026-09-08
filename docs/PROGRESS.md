@@ -19,21 +19,21 @@ Update at every commit.
 
 ## 7.1 Program and schedule
 
-- [ ] PRG-1 (M) One active program, imported from JSON (schema section 8)
-- [ ] PRG-2 (M) N weeks, sessions on fixed weekdays, week-specific overrides
-- [ ] PRG-3 (M) Activation start date aligned to Monday; current week index
-- [ ] PRG-4 (M) Session state todo/done/missed; Sunday 23:59 rollover
-- [ ] PRG-5 (S) Program completed state
-- [ ] PRG-6 (M) Standalone library sessions (never scheduled)
+- [x] PRG-1 (M) One active program, imported from JSON (schema section 8)
+- [x] PRG-2 (M) N weeks, sessions on fixed weekdays, week-specific overrides
+- [x] PRG-3 (M) Activation start date aligned to Monday; current week index
+- [x] PRG-4 (M) Session state todo/done/missed; Sunday 23:59 rollover
+- [x] PRG-5 (S) Program completed state
+- [x] PRG-6 (M) Standalone library sessions (never scheduled)
 - [ ] PRG-7 (M) Program overlay for kept swaps/adds/removes
 
 ## 7.2 Home
 
-- [ ] HOME-1 (M) Week strip with state rings; expand to month
-- [ ] HOME-2 (M) Program header (name, Week X of N)
-- [ ] HOME-3 (M) Today card / pending / rest / done states
-- [ ] HOME-4 (M) Past-day sheet with that day's activity
-- [ ] HOME-5 (M) Quick access row (Extra sessions, Breathe, History)
+- [x] HOME-1 (M) Week strip with state rings; expand to month
+- [x] HOME-2 (M) Program header (name, Week X of N)
+- [x] HOME-3 (M) Today card / pending / rest / done states
+- [x] HOME-4 (M) Past-day sheet with that day's activity
+- [x] HOME-5 (M) Quick access row (Extra sessions, Breathe, History)
 - [ ] HOME-6 (M) Resume-workout banner when a workout is in progress
 
 ## 7.3 Session data model
@@ -44,7 +44,7 @@ Update at every commit.
 - [ ] SES-3b (M) logged:false unlogged sets
 - [ ] SES-3c (B) maxDuration set type
 - [ ] SES-4 (S) Unilateral blocks (two halves per set)
-- [ ] SES-5 (M) Estimated session duration
+- [x] SES-5 (M) Estimated session duration
 - [ ] SES-6 (M) Assisted blocks (counterweight, inverted progression)
 
 ## 7.4 Workout flow
