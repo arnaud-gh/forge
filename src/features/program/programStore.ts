@@ -19,6 +19,8 @@ interface ProgramStore {
   activateSeed: () => Promise<void>;
   /** Change the program start date (PRG-3, Settings). */
   setStartDate: (isoDate: string) => Promise<void>;
+  /** Record a scheduled session as done for a week (PRG-4, called on save). */
+  markSessionDone: (weekIndex: number, sessionId: string) => Promise<void>;
   reset: () => void;
 }
 
@@ -88,6 +90,16 @@ export const useProgramStore = create<ProgramStore>((set, get) => ({
     const { program, progress } = get();
     if (!uid || !program || !progress) return;
     const next: ProgramProgress = { ...progress, startDate: isoDate };
+    await updateDoc(doc(programsCollection(uid), program.programId), { state: next });
+    set({ progress: next });
+  },
+
+  markSessionDone: async (weekIndex, sessionId) => {
+    const uid = auth.currentUser?.uid;
+    const { program, progress } = get();
+    if (!uid || !program || !progress) return;
+    const week = { ...(progress.weeks[weekIndex] ?? {}), [sessionId]: 'done' as const };
+    const next: ProgramProgress = { ...progress, weeks: { ...progress.weeks, [weekIndex]: week } };
     await updateDoc(doc(programsCollection(uid), program.programId), { state: next });
     set({ progress: next });
   },

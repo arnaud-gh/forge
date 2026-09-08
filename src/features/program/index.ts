@@ -1,6 +1,7 @@
 export { useProgramStore } from './programStore';
 export type { ProgramStatus } from './programStore';
 export { getSeedProgram } from './seed';
+export { exerciseName } from './exerciseName';
 export { importProgram, ImportError, expandSchedule, resolveSession } from './importer';
 export {
   weekDays,

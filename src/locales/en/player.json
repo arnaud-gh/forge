@@ -1,4 +1,62 @@
 {
   "title": "Player",
-  "body": "The full-screen workout player will run here."
+  "body": "The full-screen workout player will run here.",
+  "overviewKicker": "Pre-session",
+  "estimate": "{{min}} min · {{count}} exercises",
+  "start": "Start session",
+  "kicker": {
+    "set": "Set {{n}} of {{total}}",
+    "round": "Round {{r}} of {{total}} · {{n}} of {{total_sets}}"
+  },
+  "caption": {
+    "setTime": "Set time",
+    "getReady": "Get ready",
+    "warmup": "Warm-up · not logged",
+    "amrap": "As many as possible",
+    "rest": "Rest",
+    "of": "of {{time}}"
+  },
+  "field": {
+    "weight": "Weight",
+    "assist": "Assist",
+    "reps": "Reps"
+  },
+  "effort": {
+    "easy": "EASY",
+    "ideal": "IDEAL",
+    "max": "MAX"
+  },
+  "action": {
+    "done": "Done",
+    "next": "Next",
+    "back": "Back",
+    "pause": "Pause",
+    "resume": "Resume",
+    "restartSet": "Restart set",
+    "addRest": "+15 s",
+    "skip": "Skip",
+    "finish": "Finish"
+  },
+  "timesUp": "Time's up, log your set",
+  "restNext": "Next: {{name}}",
+  "paused": "Paused",
+  "confirm": {
+    "finishTitle": "Finish session?",
+    "finishBody": "Finish with {{n}} sets not done?",
+    "finishNow": "Finish",
+    "discardTitle": "Discard workout?",
+    "discardBody": "This deletes the in-progress workout.",
+    "discardNow": "Discard",
+    "keepGoing": "Keep going"
+  },
+  "summary": {
+    "title": "Done",
+    "duration": "Duration",
+    "volume": "Volume",
+    "sets": "Sets",
+    "note": "Note",
+    "notePlaceholder": "How did it go?",
+    "save": "Save",
+    "kg": "kg"
+  }
 }

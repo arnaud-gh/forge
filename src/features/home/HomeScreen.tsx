@@ -88,7 +88,9 @@ export function HomeScreen() {
         program={program}
         progress={progress}
         today={today}
-        onStart={() => navigate('/player')}
+        onStart={(sessionId) =>
+          navigate(`/session/${sessionId}`, { state: { weekIndex: currentWeek } })
+        }
       />
 
       <nav className="grid grid-cols-3 gap-2">

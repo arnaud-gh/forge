@@ -60,7 +60,9 @@ export function ExtraSessionsScreen() {
                 <button
                   type="button"
                   className="w-full text-left"
-                  onClick={() => navigate('/player')}
+                  onClick={() =>
+                    navigate(`/session/${session.id}`, { state: { standalone: true } })
+                  }
                 >
                   <Card padding="summary">
                     <p className="font-display text-display-xs uppercase text-ink">

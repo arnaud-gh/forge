@@ -7,6 +7,7 @@ import { BreathingSessionScreen } from '@/features/breathing/BreathingSessionScr
 import { HistoryScreen } from '@/features/history/HistoryScreen';
 import { SettingsScreen } from '@/features/settings/SettingsScreen';
 import { PlayerScreen } from '@/features/player/PlayerScreen';
+import { PreSessionOverview } from '@/features/player/PreSessionOverview';
 import { ComponentsPage } from './dev/ComponentsPage';
 import { TabLayout } from './TabLayout';
 import { PwaUpdater } from './PwaUpdater';
@@ -39,6 +40,7 @@ export function App() {
             <Route path="/history" element={<HistoryScreen />} />
             <Route path="/settings" element={<SettingsScreen />} />
           </Route>
+          <Route path="/session/:sessionId" element={<PreSessionOverview />} />
           <Route path="/player" element={<PlayerScreen />} />
           <Route path="/breathe/session" element={<BreathingSessionScreen />} />
           <Route path="*" element={<Navigate to="/" replace />} />
